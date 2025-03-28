@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Read the CSV file
-df = pd.read_csv('controlled.csv', encoding='ISO-8859-1')  # Adjust the file path and encoding if needed
+df = pd.read_csv('controlled plants.csv', encoding='ISO-8859-1')  # Adjust the file path and encoding if needed
 
 # Reorder the rows based on the third column (index 2)
 df_sorted = df.sort_values(by=df.columns[2], ascending=True)

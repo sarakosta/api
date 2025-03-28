@@ -1,0 +1,68 @@
+Site,Plant family,Plant species ,Plant code,Origin,Status,No. plants,Floral abundance,lp,Visitation rate
+C,Euphorbiaceae,Antidesma madagascariense,An ma,N,LC,2.0,0.075,5.0,0.222
+C,Rubiaceae,Antirhea borbonica,An bo,N,LC,1157.0,0.952,10.0,0.116
+C,Flacourtiaceae,Aphloia theiformis,Ap th,N,LC,877.0,0.279,28.0,0.799
+C,Myrsinaceae,Ardisia crenate,Ar cr,I,,36.0,0.005,0.0,0.0
+C,Myrsinaceae,Badula insularis,Ba in,E,EN,2.0,0.003,2.0,0.439
+C,Myrsinaceae,Badula platiphylla,Ba pl,E,CR,7.0,0.004,5.0,0.493
+C,Rubiaceae,Bertiera zaluzania,Be za,E,VU,5.0,0.008,12.0,1.467
+C,Clusiaceae,Calophyllum eputamen var eputamen,Ca ep,E,VU,32.0,0.011,4.0,0.39
+C,Flacourtiaceae,Casearia coriacea,Ca co,N,VU,174.0,0.002,4.0,0.597
+C,Rubiaceae,Chassalia coriacea var coriacea,Ch co,E,EN,20.0,0.026,7.0,0.341
+C,Euphorbiaceae,Claoxylon linostachys ssp brachyphyllum,Cl li,E,CR,1.0,0.013,4.0,0.14
+C,Melastomataceae,Clidemia hirta,Cl hi,I,,3.0,0.001,0.0,0.0
+C,Rubiaceae,Coffea macrocarpa,Co mac,E,VU,21.0,0.019,4.0,0.184
+C,Rubiaceae,Coffea mauritiana,Co mau,N,VU,6.0,0.007,1.0,0.036
+C,Euphorbiaceae,Cordemoya integrifolia,Co in,N,LC,8.0,0.009,3.0,0.103
+C,Euphorbiaceae,Croton fothergillifolius,Cr fo,E,CR,46.0,0.049,28.0,0.995
+C,Euphorbiaceae,Croton grangeroides,Cr gr,E,EN,57.0,0.026,12.0,0.303
+C,Ebenaceae,Diospyros revaughanii,Di re,E,VU,3.0,0.001,3.0,0.698
+C,Sapindaceae,Dodonaea viscosa ,Do vi,N,LC,50.0,0.062,19.0,0.169
+C,Sapindaceae,Doratoxylon apetalum var diphyllum,Do ap di,N,VU,7.0,0.005,2.0,1.0
+C,Dracaenaceae,Dracaena reflexa var angustifolia,Dr re,N,LC,3.0,0.003,13.0,0.625
+C,Myrsinaceae,Embelia angustifolia,Em an,N,EN,3.0,0.003,6.0,0.107
+C,Flacourtiaceae,Erythrospermum monticolum var monticolum,Er mo,E,VU,1.0,0.002,0.0,0.0
+C,Erythroxylaceae,Erythroxylum macrocarpum,Er ma,E,VU,35.0,0.022,29.0,1.206
+C,Myrtaceae,Eugenia orbiculata,Eu or,E,VU,30.0,0.001,1.0,0.125
+C,Rutaceae,Euodia obtusifolia ssp gigas var gigas,Eu ob gi,N,CR,1.0,0.0,1.0,0.308
+C,Asteraceae,Faujasiopsis flexuosa ssp erecta,Fa fl,E,VU,164.0,0.004,9.0,0.649
+C,Flagellariaceae,Flagellaria indica,Fl in,N,LC,8.0,0.03,2.0,0.112
+C,Rubiaceae,Gaertnera psychotrioides/edentata2,Ga ps,E,EN,196.0,0.107,17.0,0.455
+C,Rubiaceae,Gaertnera rotundifolia,Ga ro,E,CR,16.0,0.02,1.0,0.048
+C,Chrysobalanaceae,Grangeria borbonica,Gr bo,N,VU,7.0,0.009,14.0,0.509
+C,Clusiaceae,Harungana madagascariensis,Ha ma,I,,8.0,0.01,3.0,1.308
+C,Asteraceae,Helichrysum proteoides,He pr,E,EN,12.0,0.297,14.0,0.438
+C,Euphorbiaceae,Homalanthus populifolius,Ho po,I,,67.0,0.035,18.0,1.131
+C,Sapotaceae,Labourdonnaisia calophylloides,La ca,N,VU,196.0,0.081,5.0,0.378
+C,Sapindaceae,Molinaea alternifolia,Mo al,N,VU,184.0,0.083,19.0,1.238
+C,Sapindaceae,Molinaea macrantha,Mo ma,E,VU,3.0,0.005,3.0,0.431
+C,Rubiaceae,Myonima violacea var ovata,My vi,E,VU,23.0,0.119,13.0,0.574
+C,Ochnaceae,Ochna mauritiana,Oc ma,E,VU,166.0,0.139,16.0,0.951
+C,Oleaceae,Olea lancea,Ol la,N,LC,570.0,0.073,5.0,0.359
+C,Melastomataceae,Ossaea marginata,Os ma,I,,223.0,0.176,0.0,0.0
+C,Euphorbiaceae,Phyllanthus phillyreifolius var telfairianus,Ph ph,E,VU,7.0,0.045,10.0,0.207
+C,Pittosporaceae,Pittosporum senacia,Pi se,N,LC,5.0,0.002,0.0,0.0
+C,Rubiaceae,Psathura terniflora,Ps te,E,VU,5.0,0.001,2.0,4.0
+C,Asteraceae,Psiadia terebinthina,Psi te,E,VU,155.0,0.484,38.0,0.568
+C,Myrtaceae,Psidium cattleianum,Ps ca,I,,49626.0,0.264,11.0,0.622
+C,Rosaceae,Rubus alcefolius,Ru al,I,,68.0,0.007,4.0,0.813
+C,Sapotaceae,Sideroxylon cinereum,Si ci,E,VU,360.0,0.567,31.0,1.005
+C,Sapotaceae,Sideroxylon puberulum,Si pu,E,VU,457.0,0.723,13.0,0.914
+C,Smilacaceae,Smilax anceps,Sm an,N,LC,26.0,0.01,1.0,0.014
+C,Euphorbiaceae,Stillingia lineata ssp lineata,St li,N,LC,234.0,0.059,33.0,4.797
+C,Myrtaceae,Syzygium commersonii ,Sy com,E,VU,2.0,0.002,3.0,0.318
+C,Myrtaceae,Syzygium coriaceum,Sy cor,E,VU,345.0,0.119,10.0,0.368
+C,Myrtaceae,Syzygium glomeratum,Sy gl,E,VU,113.0,0.01,3.0,0.156
+C,Myrtaceae,Syzygium petrinense,Sy pe,E,EN,10.0,0.007,8.0,0.241
+C,Apocynaceae,Tabernaemontana persicariaefolia,Ta per,E,EN,6.0,0.007,3.0,0.165
+C,Rutaceae,Toddalia asiatica,To as,N,LC,2.0,0.008,15.0,1.678
+C,Melastomataceae,Tristhema mauritiana,Tr ma,N,LC,12.0,0.001,2.0,0.3
+C,Malvaceae,Trochetia blackburniana,Tr bl,E,EN,19.0,0.001,2.0,0.893
+C,Meliaceae,Turraea rigida,Tu ri,E,CR,5.0,0.001,1.0,0.101
+C,Melastomataceae,Warneckea trinervis,Wa tr,E,VU,27.0,0.024,2.0,0.03
+C,Thymelaeaceae,Wikstroemia indica,Wi in,I,,2027.0,0.346,1.0,0.041
+C,Annonaceae,Xylopia lamarckii ,Xy la,E,CR,2.0,0.0003,0.0,0.0
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,38.0,
+,,,,,,,,8.492063492,
