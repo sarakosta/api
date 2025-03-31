@@ -7,12 +7,12 @@ def load_adjacency_matrix(file_path):
     df = pd.read_csv(file_path, index_col=0, header=0, encoding='ISO-8859-1')  # First column is row labels
     return df.index.tolist(), df.columns.tolist(), df.values  # Extract row labels, column labels, and matrix
 
-#def sort(file_path):
-#    df = pd.read_csv(file_path, encoding='ISO-8859-1')
-#   df_sorted = df.sort_values(by=df.columns[2], ascending=True)
-#    return df_sorted
+def sort(file_path):
+    df = pd.read_csv(file_path, encoding='ISO-8859-1')
+    df_sorted = df.sort_values(by=df.columns[2], ascending=True)
+    return df_sorted
     # Save the reordered DataFrame to a new CSV file
-    # df_sorted.to_csv('controlled_sorted.csv', index=False)
+    df_sorted.to_csv('controlled_sorted.csv', index=False)
 
 def print_network(file_path, file_path2):
     # Load adjacency matrix from CSV with headers
