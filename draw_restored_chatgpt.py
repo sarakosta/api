@@ -54,11 +54,10 @@ def print_network(file_path, file_path2):
     
     nx.draw(G, pos, with_labels=True, node_size=sizes, node_color="lightblue", edge_color="black", font_size=12, width=normalized_weights)
     
-    plt.title("Bipartite Pollination Graph Restored")
+print_network("gcontrolled.csv", "controlled_sorted.csv")
+plt.title("Bipartite Pollination Graph Restored")
     
-    # Save the figure as PDF
-    plt.savefig("restored_graph.jpeg", format='jpeg', dpi=300, bbox_inches='tight')
-    plt.show()
+# Save the figure as PDF
+plt.savefig("controlled_graph.jpeg", format='jpeg', dpi=300, bbox_inches='tight')
+plt.show()
 
-# Call the function to generate the graph
-print_network("grestored.csv", "restored_sorted.csv")
