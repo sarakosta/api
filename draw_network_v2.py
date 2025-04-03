@@ -54,18 +54,41 @@ def print_network(file_path, file_path2):
     
     nx.draw(G, pos, with_labels=True, node_size=sizes, node_color="lightblue", edge_color="black", font_size=12, width=normalized_weights)
     
-def evenness(file_path):
+def shannon_entropy(prob):
+    entropy = -np.sum(prob * np.log2(prob + 1e-9))  # Add a small value to avoid log(0)
+    return entropy
+
+def evenness0(file_path):
     row_labels, col_labels, adj_matrix = load_adjacency_matrix(file_path)
     plant_weights =  [np.sum(col) for col in adj_matrix.T]
     animal_weights = [np.sum(row) for row in adj_matrix]
-    prob_plant=np.zeros((len(animal_weights),len(plant_weights)), dtype=c)
-    for j in range(len(plant_weights)):
-        prob_plant[i,j] = [adj_matrix[i,j]/ plant_weights[i] for i in range(len(animal_weights))]
-         #prob_animal[j] = [adj_matrix[i,j]/ animal_weights[i] for i in len(animal_weights)]
-    return prob_plant
+    prob_plant = np.zeros((len(animal_weights), len(plant_weights)))
+    prob_animal = np.zeros((len(animal_weights), len(plant_weights)))
+    for i in range(len(animal_weights)):
+        for j in range(len(plant_weights)):
+            if plant_weights[j] != 0:  # Check for division by zero
+                prob_plant[i, j] = adj_matrix[i, j] / plant_weights[j]
+            else:
+                prob_plant[i, j] = 0  # or np.nan
+            if animal_weights[j] != 0:  # Check for division by zero
+                prob_animal[i, j] = adj_matrix[i, j] / animal_weights[i]
+            else:
+                prob_animal[i, j] = 0  # or np.nan
+    evenness_animal = shannon_entropy(prob_animal) / np.log2(np.sum(adj_matrix))
+    evenness_plant = shannon_entropy(prob_plant) / np.log2(np.sum(adj_matrix))
+    return evenness_plant, evenness_animal
 
-prob_plant = evenness("gcontrolled.csv")
-print(prob_plant, len(prob_plant))
+def evenness(file_path):
+    row_labels, col_labels, adj_matrix = load_adjacency_matrix(file_path)
+    prob = adj_matrix/np.sum(adj_matrix)
+    evenness = shannon_entropy(prob) / np.log2(np.count_nonzero(adj_matrix))
+    return evenness
+
+evenness_r = evenness("grestored.csv")
+evenness_c = evenness("gcontrolled.csv")
+print("controlled evenness:", evenness_c)
+print("restored evenness:", evenness_r)
+
     
 print_network("gcontrolled.csv", "controlled_sorted.csv")
 plt.title("Bipartite Pollination Graph Restored")
