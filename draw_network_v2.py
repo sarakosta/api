@@ -54,6 +54,19 @@ def print_network(file_path, file_path2):
     
     nx.draw(G, pos, with_labels=True, node_size=sizes, node_color="lightblue", edge_color="black", font_size=12, width=normalized_weights)
     
+def evenness(file_path):
+    row_labels, col_labels, adj_matrix = load_adjacency_matrix(file_path)
+    plant_weights =  [np.sum(col) for col in adj_matrix.T]
+    animal_weights = [np.sum(row) for row in adj_matrix]
+    prob_plant=np.zeros((len(animal_weights),len(plant_weights)), dtype=c)
+    for j in range(len(plant_weights)):
+        prob_plant[i,j] = [adj_matrix[i,j]/ plant_weights[i] for i in range(len(animal_weights))]
+         #prob_animal[j] = [adj_matrix[i,j]/ animal_weights[i] for i in len(animal_weights)]
+    return prob_plant
+
+prob_plant = evenness("gcontrolled.csv")
+print(prob_plant, len(prob_plant))
+    
 print_network("gcontrolled.csv", "controlled_sorted.csv")
 plt.title("Bipartite Pollination Graph Restored")
     
