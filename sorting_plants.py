@@ -8,6 +8,3 @@ df_sorted = df.sort_values(by=df.columns[2], ascending=True)
 
 # Save the reordered DataFrame to a new CSV file
 df_sorted.to_csv('restored_sorted.csv', index=False)
-
-# Optional: Print the first few rows to check the result
-print(df_sorted.head())

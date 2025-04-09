@@ -1,0 +1,101 @@
+Site,Animal order,Animal family,Animal species ,Animal code,Origin,No. of visits,Probed flowers (mean ± SE),la
+U,Hymenoptera,Braconidae,Agathidinae sp,5,Un,1,5.00,1
+U,Coleoptera,Cucujidae,Ahasverus advena,7,I,14,2.21 ± 0.32,5
+U,Diptera,Syrphidae,Allograpta nasuta,8,N,63,4.48 ± 0.56,20
+U,Hymenoptera,Apidae,Apis mellifera,13,I,682,8.80 ± 0.35,28
+U,Diptera,Muscidae,Atherigona orientalis,14,N,1,2.00,1
+U,Hymenoptera,Formicidae,Brachymyrmex sp,17,N,96,1.92 ± 0.10,12
+U,Lepidoptera,Pieridae,Calopsilia florella,19,I,1,1.00,1
+U,Hymenoptera,Ichneumonidae,Campopleginae sp,20,Un,2,2.00 ± 0.00,1
+U,Coleoptera,Cerambycidae,Cerambycidae sp 1,22,Un,4,2.25 ± 0.25,2
+U,Coleoptera,Cerambycidae,Cerambycidae sp 2,23,Un,1,1.00,1
+U,Coleoptera,Cerambycidae,Cerambycidae sp 3,24,Un,1,2.00,1
+U,Diptera,Tephritidae,Ceratitis roas,25,I,1,1.00,1
+U,Coleoptera,Chrysomelidae,Chaetocnema sp,26,I,702,1.73 ± 0.05,34
+U,Hymenoptera,Braconidae,Cheloninae sp 1,27,Un,3,3.67 ± 0.67,1
+U,Hymenoptera,Braconidae,Cheloninae sp 3,29,Un,2,1.00,1
+U,Diptera,Calliphoridae,Chrysomya megacephala,31,N,67,5.31 ± 0.78,17
+U,Hemiptera,Cixiidae,Cixiidae sp 1,33,Un,1,3.00,1
+U,Hemiptera,Cixiidae,Cixiidae sp 2,34,Un,1,1.00,1
+U,Hymenoptera,Braconidae,Cotesia sp 1,36,Un,3,1.33 ± 0.33,1
+U,Coleoptera,Curculionidae,Cratopus psittacus,37,Un,1,7.00,1
+U,Coleoptera,Chrysomelidae,Cryptocephalinae sp,39,Un,1,1.00,1
+U,Coleoptera,Melyridae,Dasytinae sp,40,Un,1,3.00,1
+U,Diptera,Tephritidae,Dioxyna sororcula,41,I,25,3.12 ± 0.37,7
+U,Diptera,Unknown,Diptera sp 2,43,Un,1,2.00,1
+U,Diptera,Unknown,Diptera sp 3,42,Un,1,2.00,1
+U,Lepidoptera,Arctiidae,Dysauxes florida,48,E,163,6.52 ± 0.52,18
+U,Diptera,Syrphidae,Episyrphus sp near circularis,50,N,22,2.50 ± 0.55,12
+U,Diptera,Syrphidae,Eristalinus flaveolus,51,N,27,4.22 ± 0.80,11
+U,Coleoptera,Chrysomelidae,Eumolpinae sp 2,53,Un,1,2.00,1
+U,Coleoptera,Chrysomelidae,Eumolpinae sp 3,54,Un,5,1.80 ± 0.20,2
+U,Hymenoptera,Eurytonidae,Eurytonidae sp 1,55,Un,1,3.00,1
+U,Diptera,Fanniidae,Fannia pusio,56,I,121,3.12 ± 0.20,11
+U,Lepidoptera,Gelechiidae,Gelechioidea sp 2,58,Un,1,4.00,1
+U,Lepidoptera,Gelechiidae,Gelechioidea sp 2,59,Un,16,2.00 ± 0.22,5
+U,Lepidoptera,Gelechiidae,Gelechioidea sp 3,60,Un,2,1.50 ± 0.50,2
+U,Diptera,Tephritidae,Goniurellia or Dectodes sp,61,Un,2,2.00 ± 0.00,1
+U,Diptera,Muscidae,Graphomya maculata,62,N,1,1.00,1
+U,Lepidoptera,Nymphalidae,Henotesia narcissus,63,N,4,3.50 ± 1.32,2
+U,Lepidoptera,Sphingidae,Hippotion eson,64,N,1,1.00,1
+U,Diptera,Lauxaniidae,Homoneura sp 1,66,E,1,6.00,1
+U,Diptera,Lauxaniidae,Homoneura sp 2,67,E,1,3.00,1
+U,Diptera,Muscidae,Hydrotaea fuliginosa,70,N,2,3.00 ± 0.00,1
+U,Diptera,Syrphidae,Ischiodon aegyptius,72,I,17,3.88 ± 1.37,7
+U,Lepidoptera,Lecithoceridae,Lecithoceridae sp 1,74,Un,3,1.67 ± 0.67,3
+U,Lepidoptera,Lycaenidae,Leptotes pirithous ,76,N,14,4.00 ± 0.62,5
+U,Diptera,Muscidae,Limnophora quaterna,77,I,1,1.00,1
+U,Hemiptera,Lygaeidae,Lygaeidae sp 2,81,Un,1,5.00,1
+U,Hemiptera,Lygaeidae,Lygaeidae sp 3,82,Un,1,1.00,1
+U,Hemiptera,Lygaeidae,Lygaeidae sp 5,84,Un,22,3.09 ± 0.38,1
+U,Diptera,Mycetophilidae,Lygistorrhina sp,85,N,56,3.61 ± 0.55,11
+U,Lepidoptera,Macroglossidae,Macroglossum milvus,86,N,2,4.50 ± 2.50,2
+U,Coleoptera,Cerambycidae,Mauritiborium undulatus,87,E,14,1.71 ± 0.30,6
+U,Diptera,Agromyzidae,Melanagromyza sojae,88,I,1,2.00,1
+U,Diptera,Syrphidae,Melanostoma annulipes,89,N,35,1.91 ± 0.20,10
+U,Diptera,Syrphidae,Melanostoma bituberculatum ,90,I,10,4.30 ± 1.05,6
+U,Hemiptera,Miridae,Miridae sp,91,Un,1,8.00,1
+U,Coleoptera,Mordellidae,Mordellidae sp 1,92,Un,1,3.00,1
+U,Coleoptera,Mordellidae,Mordellidae sp 2,93,Un,1,3.00,1
+U,Coleoptera,Mordellidae,Mordellidae sp 3,94,Un,1,1.00,1
+U,Diptera,Muscidae,Musca confiscate,95,N,1,3.00,1
+U,Diptera,Muscidae,Musca domestica,96,I,132,4.98 ± 0.57,20
+U,Lepidoptera,Crambidae,Nacoleia sp 2,98,Un,78,2.24 ± 0.20,20
+U,Lepidoptera,Crambidae,Nacoleia sp 2,99,Un,19,1.84 ± 0.37,5
+U,Coleoptera,Nitidulidae,Nitidulidae sp,100,Un,1,1.00,1
+U,Lepidoptera,Arctiidae,Nyctemera insulare,102,N,1,7.00,1
+U,Diptera,Muscidae,Ophyra capensis,103,I,33,5.67 ± 1.05,8
+U,Diptera,Muscidae,Orchisia costata ,104,N,2,2.00 ± 1.00,2
+U,Diptera,Syrphidae,Ornidia obesa ,105,I,8,6.00 ± 1.43,8
+U,Diptera,Muscidae,Orthellia albigena,106,N,13,2.69 ± 0.56,3
+U,Diptera,Lauxaniidae,Pachycerina crinicornis,107,E,87,2.91 ± 0.27,21
+U,Diptera,Tachinidae,Palexorista sp,109,N,1,2.00,1
+U,Lepidoptera,Hesperiidae,Panara naso ,110,N,31,3.19 ± 0.33,11
+U,Diptera,Syrphidae,Paragus borbonicus,112,I,15,4.13 ± 1.44,9
+U,Coleoptera,Melyridae,Pelecophora intemipta,113,Un,5,2.00 ± 0.32,3
+U,Lepidoptera,Nymphalidae,Phalanta phalantha ,115,N,1,1.00,1
+U,Hymenoptera,Formicidae,Pheidole megacephala,116,I,3,2.00 ± 0.00,1
+U,Squamata,Gekkonidae,Phelsuma cepediana,117,E,5,4.60 ± 2.46,3
+U,Diptera,Tachinidae,Phorinia sp,118,N,10,1.80 ± 0.33,5
+U,Hymenoptera,Vesperidae,Polistes hebraeus,119,I,34,4.68 ± 0.66,13
+U,Hemiptera,Psyllidae,Psyllidae sp 2,122,Un,1,1.00,1
+U,Diptera,Lauxaniidae,Sapromyza sp near nudiuscula ,127,Un,4,1.50 ± 0.29,4
+U,Diptera,Sarcophagidae,Sarcophaga arno,128,I,9,3.00 ± 1.04,7
+U,Diptera,Scatopsidae,Scatopsidae sp,130,Un,1,2.00,1
+U,Coleoptera,Scirtidae,Scirtidae sp 1,131,Un,1,3.00,1
+U,Coleoptera,Scirtidae,Scirtidae sp 2,132,Un,1,1.00,1
+U,Hymenoptera,Scoliidae,Scolia carniflex,133,I,1,9.00,1
+U,Lepidoptera,Crambidae,Scopariinae sp,135,Un,2,1.00 ± 0.00,2
+U,Diptera,Simuliidae,Simulium (Byssodon) sp 2,137,I,1,1.00,1
+U,Diptera,Tachinidae,Siphona sp,139,Un,1,4.00,1
+U,Diptera,Calliphoridae,Stomorhina lunata,142,I,225,5.87 ± 0.39,30
+U,Diptera,Muscidae,Stomoxys calcitrans,143,I,38,4.32 ± 0.68,10
+U,Diptera,Muscidae,Stomoxys niger,144,I,22,2.50 ± 0.35,7
+U,Diptera,Syrphidae,Syritta bulbus,146,I,4,3.00 ± 0.41,1
+U,Diptera,Syrphidae,Syritta nigrofemorata,147,N,17,3.94 ± 0.82,8
+U,Diptera,Syrphidae,Syritta sp near abyssinica,148,I,6,3.83 ± 1.08,3
+U,Hymenoptera,Formicidae,Technomyrmex albipes,150,I,236,2.10 ± 0.08,24
+U,Diptera,Tachinidae,Thelairodrino sp,152,Un,1,1.00,1
+U,Lepidoptera,Noctuidae,Thysanoplusia orichalcea,153,N,1,3.00,1
+U,Diptera,Bombyliidae,Villa unifasciata,156,N,51,1.96 ± 0.16,17
+U,Passeriformes,Zosteropidae,Zosterops mauritianus ,160,E,3,4.00 ± 0.58,2
