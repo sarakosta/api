@@ -58,6 +58,7 @@ def shannon_entropy(prob):
     entropy = -np.sum(prob * np.log2(prob + 1e-9))  # Add a small value to avoid log(0)
     return entropy
 
+# falso
 def evenness0(file_path):
     row_labels, col_labels, adj_matrix = load_adjacency_matrix(file_path)
     plant_weights =  [np.sum(col) for col in adj_matrix.T]
@@ -83,6 +84,16 @@ def evenness(file_path):
     prob = adj_matrix/np.sum(adj_matrix)
     evenness = shannon_entropy(prob) / np.log2(np.count_nonzero(adj_matrix))
     return evenness
+
+#evennesses = []
+controlled_families = ["gcontrolled_coleoptera.csv", "gcontrolled_diptera.csv", "gcontrolled_hymenoptera.csv", "gcontrolled_lepidoptera.csv", "gcontrolled_squamata.csv"]
+#for i in controlled_families:
+#    append(evennesses, eveness(i))
+#print(sum(evennesses)/len(evennesses))
+
+evenness_c = list(map(evenness, controlled_families))
+print(evenness_c)
+print(sum(evenness_c)/len(controlled_families))
 
 evenness_r = evenness("grestored.csv")
 evenness_c = evenness("gcontrolled.csv")
