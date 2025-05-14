@@ -9,6 +9,13 @@ def load_adjacency_matrix(file_path):
     df = pd.read_csv(file_path, index_col=0, header=0, encoding='ISO-8859-1')  # First column is row labels
     return df.index.tolist(), df.columns.tolist(), df.values  # Extract row labels, column labels, and matrix
 
+# nel futuro mettere df.values come primo output e cambiare tutto il codice di conseguenza
+
+def weight_distribution(file_path):
+    plants, pollinators, adj_matrix = load_adjacency_matrix(file_path)
+    weights_real = adj_matrix[adj_matrix > 0]
+    return weights_real 
+
 # creates the newtork given the adjacency matrix
 def network(file_path):
     # Load adjacency matrix from CSV with headers
@@ -57,6 +64,27 @@ def erdos_renyi(file_path):
             if random.random() < p:
                 B.add_edge(i, num_plants + j) 
     return B  
+
+def erdos_renyi_native(file_path, weights_real):
+    rows, cols, adj_matrix = load_adjacency_matrix(file_path)
+
+    # Set numbers
+    num_plants = len(cols)
+    num_pollinators = len(rows)
+    interactions = np.count_nonzero(adj_matrix)
+    p = interactions / (num_plants * num_pollinators)  # Probability of interaction
+
+    # Create bipartite graph
+    G_er = nx.bipartite.random_graph(num_plants, num_pollinators, p)
+    
+    edges = list(G_er.edges())
+    sampled_weights = np.random.choice(weights_real, size=len(edges), replace=True)
+
+    # Assign weights as edge attributes
+    for (edge, weight) in zip(edges, sampled_weights):
+        G_er[edge[0]][edge[1]]['weight'] = weight
+        
+    return G_er  
 
 # plot the degree of a graph
 def degree(graph):
@@ -149,8 +177,10 @@ def eigenvector_centrality(graph):
 
 # define an array of N_ER Erdos Renyi networks
 
-N_ER = 10
+N_ER = 100
 rows, cols, adj_matrix = load_adjacency_matrix("grestored.csv")
+weights = weight_distribution("grestored.csv")
+
 num_plants = len(cols)
 num_pollinators = len(rows)
 
@@ -162,6 +192,9 @@ sum_cc_pollinators = np.zeros((num_pollinators))
 
 sum_ec_plants = np.zeros((num_plants))
 sum_ec_pollinators = np.zeros((num_pollinators))
+
+sum_wd_plants = np.zeros((num_plants))
+sum_wd_pollinators = np.zeros((num_pollinators))
 
 for n in range(N_ER):
     # create Erod Renyi
@@ -193,6 +226,15 @@ for n in range(N_ER):
         sum_ec_plants[i] += ec_plants_values[i]
     for i in range(num_pollinators):
         sum_ec_pollinators[i] += ec_pollinators_values[i]
+       
+    # weighted degree
+    wd_plants, wd_pollinators = weighted_degree(erdos_renyi_graph)
+    wd_plants_values = list(ec_plants.values())
+    wd_pollinators_values = list(ec_pollinators.values())
+    for i in range(num_plants):
+        sum_wd_plants[i] += wd_plants_values[i]
+    for i in range(num_pollinators):
+        sum_wd_pollinators[i] += wd_pollinators_values[i]
     
 # species names    
 restored_graph = network("grestored.csv")
@@ -224,6 +266,22 @@ mean_ec_pollinators = sum_ec_pollinators / N_ER
 mean_ec_pollinators_name = "Mean EC for pollinators over ER"
 bar_chart(species_pollinators, mean_ec_pollinators, mean_ec_pollinators_name)
 
+# plot average weighted degree
+mean_wd_plants = sum_wd_plants / N_ER
+mean_wd_plants_name = "Mean WD for plants over ER"
+bar_chart(species_plant, mean_wd_plants, mean_wd_plants_name)
+mean_wd_pollinators = sum_wd_pollinators / N_ER
+mean_wd_pollinators_name = "Mean WD for pollinators over ER"
+bar_chart(species_pollinators, mean_wd_pollinators, mean_wd_pollinators_name)
+
+# weighted degree distribution for our network
+restored_graph = network("grestored.csv")
+plant_wd_api, pollinator_wd_api = degree(restored_graph)
+wd_plants_name_api = "WD for plants for our network"
+bar_chart(species_plant, plant_wd_api, wd_plants_name_api)
+wd_pollinators_name_api = "WD for pollinators for our network"
+bar_chart(species_pollinators, pollinator_wd_api, wd_pollinators_name_api)
+
 #ec_plants, ec_pollinators = eigenvector_centrality(restored_graph)
 #ec_plants_values = list(ec_plants.values())
 #ec_pollinators_values = list(ec_pollinators.values())
@@ -233,13 +291,13 @@ bar_chart(species_pollinators, mean_ec_pollinators, mean_ec_pollinators_name)
 #bar_chart(species_plant, ec_plants_values, ec_plants_name)
 #bar_chart(species_pollinators ,ec_pollinators_values, ec_pollinators_name)
 
+# degree distribution for ER and our network
 erdos_renyi_graph = erdos_renyi("grestored.csv")
-plant_degree_er, pollinator_degree_er = degree(erdos_renyi_graph)
 
-#restored_graph = network("grestored.csv")
+#plant_degree_er, pollinator_degree_er = degree(erdos_renyi_graph)
 #plant_degree_api, pollinator_degree_api = degree(restored_graph)
 
-histo(plant_degree_er, pollinator_degree_er) 
+#histo(plant_degree_er, pollinator_degree_er) 
 #histo(plant_degree_api, pollinator_degree_api)
 
 #between centrality
