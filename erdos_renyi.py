@@ -1,8 +1,8 @@
 import networkx as nx
-import random
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import scipy.stats as sc
 
 # extract row labels, column labels and matrix given an adjacency matrix in a csv file
 def load_adjacency_matrix(file_path):
@@ -42,28 +42,6 @@ def network(file_path):
             if adj_matrix[i, j] > 0:
                 G.add_edge(pollinator, plant, weight=adj_matrix[i, j])
     return G
-
-# define an Erdos Renyi network with same probability of interaction of the original graph
-def erdos_renyi(file_path):
-    rows, cols, adj_matrix = load_adjacency_matrix(file_path)
-
-    # Set numbers
-    num_plants = len(cols)
-    num_pollinators = len(rows)
-    interactions = np.count_nonzero(adj_matrix)
-    p = interactions / (num_plants * num_pollinators)  # Probability of interaction
-
-    # Create bipartite graph
-    B = nx.Graph()
-    B.add_nodes_from(range(num_plants), bipartite=0)         # Plants
-    B.add_nodes_from(range(num_plants, num_plants + num_pollinators), bipartite=1)  # Pollinators
-
-    # Randomly add edges
-    for i in range(num_plants):
-        for j in range(num_pollinators):
-            if random.random() < p:
-                B.add_edge(i, num_plants + j) 
-    return B  
 
 def erdos_renyi_native(file_path, weights_real):
     rows, cols, adj_matrix = load_adjacency_matrix(file_path)
@@ -128,14 +106,25 @@ def weighted_degree(graph):
     return plant_w_degrees, pollinator_w_degrees
 
 # draw bar chart for centrality measures of each species
-def bar_chart(species, centrality_measure, name):
-    # Extract node names and values
-    # nodes = list(centrality_measure.keys())
-    # values = list(centrality_measure.values())
-    # Plot
+def bar_chart(species, centrality_measure, name, common_names):
     plt.figure(figsize=(20, 10), dpi = 100)
-    plt.bar(species, centrality_measure, color='lightcoral', edgecolor='black')
+    bars = plt.bar(species, centrality_measure, color='lightcoral', edgecolor='black')
+    
+    # color bars if they are in common
+    for bar, label in zip(bars, species):
+        if label in common_names:
+            bar.set_color('blue')  # Highlighted color
+        else:
+            bar.set_color('red')  # Default color
+    
     plt.xticks(rotation=90)  # Rotate x labels for readability
+    
+    ax = plt.gca() # get current axis
+    for tick in ax.get_xticklabels():
+        if tick.get_text() in common_names:
+            tick.set_color('blue')  # Highlighted label
+        else:
+            tick.set_color('red')   # Default label
     plt.xlabel("Species")
     plt.ylabel(f'{name}')
     plt.title(f'{name} Species')
@@ -162,149 +151,139 @@ def closeness_centrality(graph):
     pollinator_ccw = {n: closeness[n] for n in pollinators}
     return plant_ccw, pollinator_ccw
 
-def eigenvector_centrality(graph):
-    plants = {n for n, d in graph.nodes(data=True) if d['bipartite'] == 0}
-    pollinators = {n for n, d in graph.nodes(data=True) if d['bipartite'] == 1}
-    
-    eigenvector_centrality = nx.eigenvector_centrality(graph, weight='weight', max_iter=1000)
-    plant_ecw = {n: eigenvector_centrality[n] for n in plants}
-    pollinator_ecw = {n: eigenvector_centrality[n] for n in pollinators}
-    return plant_ecw, pollinator_ecw
-
-# plant_w_degree, pollinator_w_degree = weighted_degree(restored_graph)    
-# print(np.mean(plant_w_degree))
-# print(np.mean(pollinator_w_degree))
-
 # define an array of N_ER Erdos Renyi networks
 
 N_ER = 100
-rows, cols, adj_matrix = load_adjacency_matrix("grestored.csv")
-weights = weight_distribution("grestored.csv")
 
-num_plants = len(cols)
-num_pollinators = len(rows)
-
-sum_bc_plants = np.zeros((num_plants))
-sum_bc_pollinators = np.zeros((num_pollinators))
-
-sum_cc_plants = np.zeros((num_plants))
-sum_cc_pollinators = np.zeros((num_pollinators))
-
-sum_ec_plants = np.zeros((num_plants))
-sum_ec_pollinators = np.zeros((num_pollinators))
-
-sum_wd_plants = np.zeros((num_plants))
-sum_wd_pollinators = np.zeros((num_pollinators))
-
-for n in range(N_ER):
-    # create Erod Renyi
-    erdos_renyi_graph = erdos_renyi("grestored.csv")
+def centrality_measures(N_ER, file_path, common_plants, common_pollinators):
+    rows, cols, adj_matrix = load_adjacency_matrix(file_path)
+    weights = weight_distribution(file_path)
     
-    # betweenness centrality
-    bc_plants, bc_pollinators = betweenness_centrality(erdos_renyi_graph)
-    bc_plants_values = list(bc_plants.values())
-    bc_pollinators_values = list(bc_pollinators.values())
-    for i in range(num_plants):
-        sum_bc_plants[i] += bc_plants_values[i]
-    for i in range(num_pollinators):
-        sum_bc_pollinators[i] += bc_pollinators_values[i]
+    num_plants = len(cols)
+    num_pollinators = len(rows)
     
-    # closeness centrality
-    cc_plants, cc_pollinators = closeness_centrality(erdos_renyi_graph)
-    cc_plants_values = list(cc_plants.values())
-    cc_pollinators_values = list(cc_pollinators.values())
-    for i in range(num_plants):
-        sum_cc_plants[i] += cc_plants_values[i]
-    for i in range(num_pollinators):
-        sum_cc_pollinators[i] += cc_pollinators_values[i]
+    sum_bc_plants = np.zeros((num_plants))
+    sum_bc_pollinators = np.zeros((num_pollinators))
+    
+    sum_cc_plants = np.zeros((num_plants))
+    sum_cc_pollinators = np.zeros((num_pollinators))
+    
+    sum_wd_plants = np.zeros((num_plants))
+    sum_wd_pollinators = np.zeros((num_pollinators))
+    
+    for n in range(N_ER):
+        # create Erod Renyi
+        erdos_renyi_graph = erdos_renyi_native(file_path, weights)
         
-    # eigenvector centrality
-    ec_plants, ec_pollinators = eigenvector_centrality(erdos_renyi_graph)
-    ec_plants_values = list(ec_plants.values())
-    ec_pollinators_values = list(ec_pollinators.values())
-    for i in range(num_plants):
-        sum_ec_plants[i] += ec_plants_values[i]
-    for i in range(num_pollinators):
-        sum_ec_pollinators[i] += ec_pollinators_values[i]
-       
-    # weighted degree
-    wd_plants, wd_pollinators = weighted_degree(erdos_renyi_graph)
-    wd_plants_values = list(ec_plants.values())
-    wd_pollinators_values = list(ec_pollinators.values())
-    for i in range(num_plants):
-        sum_wd_plants[i] += wd_plants_values[i]
-    for i in range(num_pollinators):
-        sum_wd_pollinators[i] += wd_pollinators_values[i]
+        # betweenness centrality
+        bc_plants, bc_pollinators = betweenness_centrality(erdos_renyi_graph)
+        bc_plants_values = list(bc_plants.values())
+        bc_pollinators_values = list(bc_pollinators.values())
+        for i in range(num_plants):
+            sum_bc_plants[i] += bc_plants_values[i]
+        for i in range(num_pollinators):
+            sum_bc_pollinators[i] += bc_pollinators_values[i]
+        
+        # closeness centrality
+        cc_plants, cc_pollinators = closeness_centrality(erdos_renyi_graph)
+        cc_plants_values = list(cc_plants.values())
+        cc_pollinators_values = list(cc_pollinators.values())
+        for i in range(num_plants):
+            sum_cc_plants[i] += cc_plants_values[i]
+        for i in range(num_pollinators):
+            sum_cc_pollinators[i] += cc_pollinators_values[i]
+            
+        # weighted degree
+        wd_plants, wd_pollinators = weighted_degree(erdos_renyi_graph)
+        #wd_plants_values = list(wd_plants.values())
+        #wd_pollinators_values = list(wd_pollinators.values())
+        for i in range(num_plants):
+            sum_wd_plants[i] += wd_plants[i]
+        for i in range(num_pollinators):
+            sum_wd_pollinators[i] += wd_pollinators[i]
+        
+    # species names    
+    restored_graph = network(file_path)
+    bc_plants, bc_pollinators = betweenness_centrality(restored_graph)
+    species_plant = list(bc_plants.keys())
+    species_pollinators = list(bc_pollinators.keys())
     
-# species names    
-restored_graph = network("grestored.csv")
-bc_plants, bc_pollinators = betweenness_centrality(restored_graph)
-species_plant = list(bc_plants.keys())
-species_pollinators = list(bc_pollinators.keys())
+    # plot average betweennes centrality
+    mean_bc_plants = sum_bc_plants / N_ER
+    mean_bc_plants_name = "Mean BC for plants over ER"
+    bar_chart(species_plant, mean_bc_plants, mean_bc_plants_name, common_plants)
+    mean_bc_pollinators = sum_bc_pollinators / N_ER
+    mean_bc_pollinators_name = "Mean BC for pollinators over ER"
+    bar_chart(species_pollinators, mean_bc_pollinators, mean_bc_pollinators_name, common_pollinators)
+    
+    # betweennes centrality distribution for our network
+    bc_plant_restored, bc_pollinator_restored = betweenness_centrality(restored_graph)
+    bc_plants_values_restored = list(bc_plant_restored.values())
+    bc_pollinators_values_restored = list(bc_pollinator_restored.values())
+    bc_plants_name_restored = "BC for plants for our network"
+    bar_chart(species_plant, bc_plants_values_restored, bc_plants_name_restored, common_plants)
+    bc_pollinators_name_restored = "BC for pollinators for our network"
+    bar_chart(species_pollinators, bc_pollinators_values_restored, bc_pollinators_name_restored, common_pollinators)
+    
+    # plot average closeness centrality
+    mean_cc_plants = sum_cc_plants / N_ER
+    mean_cc_plants_name = "Mean CC for plants over ER"
+    bar_chart(species_plant, mean_cc_plants, mean_cc_plants_name, common_plants)
+    mean_cc_pollinators = sum_cc_pollinators / N_ER
+    mean_cc_pollinators_name = "Mean CC for pollinators over ER"
+    bar_chart(species_pollinators, mean_cc_pollinators, mean_cc_pollinators_name, common_pollinators)
+    
+    # closeness centrality distribution for our network
+    cc_plant_restored, cc_pollinator_restored = closeness_centrality(restored_graph)
+    cc_plants_values_restored = list(cc_plant_restored.values())
+    cc_pollinators_values_restored = list(cc_pollinator_restored.values())
+    cc_plants_name_restored = "CC for plants for our network"
+    bar_chart(species_plant, cc_plants_values_restored, cc_plants_name_restored, common_plants)
+    cc_pollinators_name_restored = "CC for pollinators for our network"
+    bar_chart(species_pollinators, cc_pollinators_values_restored, cc_pollinators_name_restored, common_pollinators)
+    
+    # plot average weighted degree
+    mean_wd_plants = sum_wd_plants / N_ER
+    mean_wd_plants_name = "Mean WD for plants over ER"
+    bar_chart(species_plant, mean_wd_plants, mean_wd_plants_name, common_plants)
+    mean_wd_pollinators = sum_wd_pollinators / N_ER
+    mean_wd_pollinators_name = "Mean WD for pollinators over ER"
+    bar_chart(species_pollinators, mean_wd_pollinators, mean_wd_pollinators_name, common_pollinators)
+    
+    # weighted degree distribution for our network
+    plant_wd_api, pollinator_wd_api = weighted_degree(restored_graph)
+    wd_plants_name_api = "WD for plants for our network"
+    bar_chart(species_plant, plant_wd_api, wd_plants_name_api, common_plants)
+    wd_pollinators_name_api = "WD for pollinators for our network"
+    bar_chart(species_pollinators, pollinator_wd_api, wd_pollinators_name_api, common_pollinators)
+    
+    # mannwhitney test for p-value for weighted degree
+    statistic_mw_wd, p_value_mw_wd = sc.mannwhitneyu(plant_wd_api, mean_wd_plants, alternative='two-sided')
+    print("weighted degrees Mann-Withney", statistic_mw_wd, p_value_mw_wd)
+    
+    statistic_ks_wd, p_value_ks_wd = sc.ks_2samp(plant_wd_api, mean_wd_plants)
+    print("weighted degrees Kolmogorov-Smirnov", statistic_ks_wd, p_value_ks_wd)
+    
+    # mannwhitney test for p-value for betweennes centrality
+    statistic_mw_bc, p_value_mw_bc = sc.mannwhitneyu(bc_plants_values_restored, mean_bc_plants, alternative='two-sided')
+    print("betweennes centrality Mann-Withney", statistic_mw_bc, p_value_mw_bc)
+    
+    statistic_ks_bc, p_value_ks_bc = sc.ks_2samp(bc_plants_values_restored, mean_bc_plants)
+    print("betweennes centrality Kolmogorov-Smirnov", statistic_ks_bc, p_value_ks_bc)
+    
+    # mannwhitney test for p-value for closeness centrality
+    statistic_mw_cc, p_value_mw_cc = sc.mannwhitneyu(cc_plants_values_restored, mean_cc_plants, alternative='two-sided')
+    print("closeness centrality Mann-Withney", statistic_mw_bc, p_value_mw_cc)
+    
+    statistic_ks_cc, p_value_ks_cc = sc.ks_2samp(cc_plants_values_restored, mean_cc_plants)
+    print("closeness centrality Kolmogorov-Smirnov",statistic_ks_cc, p_value_ks_cc)
+    
+pollinators_c, plants_c, adj_matrix_c = load_adjacency_matrix("gcontrolled.csv")
+pollinators_r, plants_r, adj_matrix_r = load_adjacency_matrix("grestored.csv")
 
-# plot average betweennes centrality
-mean_bc_plants = sum_bc_plants / N_ER
-mean_bc_plants_name = "Mean BC for plants over ER"
-bar_chart(species_plant, mean_bc_plants, mean_bc_plants_name)
-mean_bc_pollinators = sum_bc_pollinators / N_ER
-mean_bc_pollinators_name = "Mean BC for pollinators over ER"
-bar_chart(species_pollinators, mean_bc_pollinators, mean_bc_pollinators_name)
+common_pollinators = set(pollinators_c) & set(pollinators_r)
+common_plants = set(plants_c) & set(plants_r)
 
-# plot average closeness centrality
-mean_cc_plants = sum_cc_plants / N_ER
-mean_cc_plants_name = "Mean CC for plants over ER"
-bar_chart(species_plant, mean_cc_plants, mean_cc_plants_name)
-mean_cc_pollinators = sum_cc_pollinators / N_ER
-mean_cc_pollinators_name = "Mean CC for pollinators over ER"
-bar_chart(species_pollinators, mean_cc_pollinators, mean_cc_pollinators_name)
-
-# plot average eigenvector centrality
-mean_ec_plants = sum_ec_plants / N_ER
-mean_ec_plants_name = "Mean EC for plants over ER"
-bar_chart(species_plant, mean_ec_plants, mean_ec_plants_name)
-mean_ec_pollinators = sum_ec_pollinators / N_ER
-mean_ec_pollinators_name = "Mean EC for pollinators over ER"
-bar_chart(species_pollinators, mean_ec_pollinators, mean_ec_pollinators_name)
-
-# plot average weighted degree
-mean_wd_plants = sum_wd_plants / N_ER
-mean_wd_plants_name = "Mean WD for plants over ER"
-bar_chart(species_plant, mean_wd_plants, mean_wd_plants_name)
-mean_wd_pollinators = sum_wd_pollinators / N_ER
-mean_wd_pollinators_name = "Mean WD for pollinators over ER"
-bar_chart(species_pollinators, mean_wd_pollinators, mean_wd_pollinators_name)
-
-# weighted degree distribution for our network
-restored_graph = network("grestored.csv")
-plant_wd_api, pollinator_wd_api = degree(restored_graph)
-wd_plants_name_api = "WD for plants for our network"
-bar_chart(species_plant, plant_wd_api, wd_plants_name_api)
-wd_pollinators_name_api = "WD for pollinators for our network"
-bar_chart(species_pollinators, pollinator_wd_api, wd_pollinators_name_api)
-
-#ec_plants, ec_pollinators = eigenvector_centrality(restored_graph)
-#ec_plants_values = list(ec_plants.values())
-#ec_pollinators_values = list(ec_pollinators.values())
-#ec_plants_name = "Eigenvector Centrality for Plant"
-#ec_pollinators_name = "Betweenness Centrality for Pollinators"
-
-#bar_chart(species_plant, ec_plants_values, ec_plants_name)
-#bar_chart(species_pollinators ,ec_pollinators_values, ec_pollinators_name)
-
-# degree distribution for ER and our network
-erdos_renyi_graph = erdos_renyi("grestored.csv")
-
-#plant_degree_er, pollinator_degree_er = degree(erdos_renyi_graph)
-#plant_degree_api, pollinator_degree_api = degree(restored_graph)
-
-#histo(plant_degree_er, pollinator_degree_er) 
-#histo(plant_degree_api, pollinator_degree_api)
-
-#between centrality
-#bc_plants, bc_animals = betweenness_centrality(restored_graph)
-#bc_plants_name = "Betweenness Centrality for Plant"
-#bc_animals_name = "Betweenness Centrality for Plant"
-
-#bar_chart(bc_plants, bc_plants_name)
-#bar_chart(bc_animals, bc_animals_name)
+centrality_measures(N_ER, "grestored.csv", common_plants, common_pollinators)
+centrality_measures(N_ER, "gcontrolled.csv", common_plants, common_pollinators)
 
