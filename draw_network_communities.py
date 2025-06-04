@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import community as co
 import matplotlib.cm as cm
+import graph_tool.all as gt
 
 def load_adjacency_matrix(file_path):
     df = pd.read_csv(file_path, index_col=0, header=0, encoding='ISO-8859-1')
@@ -241,6 +242,37 @@ def print_network_communities(file_adj_matrix, file_plants, file_animals, common
 
     print(f"\nNetwork loaded with {G.number_of_nodes()} nodes and {G.number_of_edges()} edges.")
 
+    # --- Create graph-tool graph from NetworkX graph ---
+    print("Converting NetworkX graph to graph-tool graph...")
+    g_gt = gt.Graph(directed=False)
+
+    # Create vertex property maps for node name, bipartite partition, and weight
+    gt_name_prop = g_gt.new_vertex_property("string")
+    gt_bipartite_prop = g_gt.new_vertex_property("int")
+    gt_weight_prop = g_gt.new_edge_property("double") # For edge weights
+
+    # Map NetworkX node names to graph-tool vertex objects
+    gt_node_map = {}
+    for node_name in G.nodes():
+        v = g_gt.add_vertex()
+        gt_node_map[node_name] = v
+        gt_name_prop[v] = node_name
+        gt_bipartite_prop[v] = G.nodes[node_name]['bipartite']
+
+    # Add edges and their weights
+    for u_nx, v_nx, data in G.edges(data=True):
+        u_gt = gt_node_map[u_nx]
+        v_gt = gt_node_map[v_nx]
+        e = g_gt.add_edge(u_gt, v_gt)
+        gt_weight_prop[e] = data.get('weight', 1.0) # Use 1.0 as default weight if not present
+
+    g_gt.vp.name = gt_name_prop
+    g_gt.vp.bipartite = gt_bipartite_prop
+    g_gt.ep.weight = gt_weight_prop
+
+    print(f"Graph-tool graph created with {g_gt.num_vertices()} vertices and {g_gt.num_edges()} edges.")
+    # --- graph-tool graph creation complete ---
+
     # --- COMMUNITY DETECTION START ---
     print("\n--- Performing Community Detection ---")
     partition = co.best_partition(G, weight='weight')
@@ -419,6 +451,8 @@ def print_network_communities(file_adj_matrix, file_plants, file_animals, common
         plt.close() # Keep this to avoid too many plot windows if you have many communities
 
     print("Finished processing individual community graphs and adjacency matrices.")
+    
+    return G, g_gt, partition 
 
 
 # --- Main execution part (outside the function) ---

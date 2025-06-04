@@ -197,18 +197,18 @@ def evenness(file_path):
     return evenness
 
 # draw an histogram
-def histo(plant_linkage, pollinator_linkage):
+def histo_old(plant_linkage, pollinator_linkage):
     # Plot histogram
     plant_min_val = int(np.floor(plant_linkage.min()))
-    plant_max_val = int(np.ceil(plant_linkage.min()))
+    plant_max_val = int(np.ceil(plant_linkage.max()))
     bins_plant = np.arange(plant_min_val - 0.5, plant_max_val + 1.5, 1)
     
     pollinator_min_val = int(np.floor(pollinator_linkage.min()))
-    pollinator_max_val = int(np.ceil(pollinator_linkage.min()))
+    pollinator_max_val = int(np.ceil(pollinator_linkage.max()))
     bins_pollinator = np.arange(pollinator_min_val - 0.5, pollinator_max_val + 1.5, 1) 
     
     plt.figure(figsize=(8, 5))
-    plt.hist(plant_linkage, bins='auto', align='left', edgecolor='black')
+    plt.hist(plant_linkage, bins=bins_plant, align='left', edgecolor='black')
     plt.title('Linkage Distribution for Plants')
     plt.xlabel('Plant Degree (number of interactions)')
     plt.ylabel('Number of plant nodes')
@@ -216,12 +216,61 @@ def histo(plant_linkage, pollinator_linkage):
     plt.show()
     
     plt.figure(figsize=(8, 5))
-    plt.hist(pollinator_linkage, bins='auto', align='left', edgecolor='black')
+    plt.hist(pollinator_linkage, bins=bins_pollinator, align='left', edgecolor='black')
     plt.title('Linkage Distribution for Pollinators')
     plt.xlabel('Pollinator Degree (number of interactions)')
     plt.ylabel('Number of pollinator nodes')
     plt.grid(True)
     plt.show()
+    
+def histo_side_by_side(
+    plant_linkage_controlled, plant_linkage_restored,
+    pollinator_linkage_controlled, pollinator_linkage_restored
+):
+    # --- Plants ---
+    all_plant = np.concatenate([plant_linkage_controlled, plant_linkage_restored])
+    plant_min_val = int(np.floor(all_plant.min()))
+    plant_max_val = int(np.ceil(all_plant.max()))
+    bins_plant = np.arange(plant_min_val - 0.5, plant_max_val + 1.5, 1)
+
+    plt.figure(figsize=(8, 5))
+    plt.hist(
+        [plant_linkage_controlled, plant_linkage_restored],
+        bins=bins_plant,
+        label=['Controlled', 'Restored'],
+        align='left',
+        edgecolor='black',
+        alpha=0.7
+    )
+    plt.title('Linkage Distribution for Plants')
+    plt.xlabel('Plant Degree (number of interactions)')
+    plt.ylabel('Number of plant nodes')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+    # --- Pollinators ---
+    all_pollinators = np.concatenate([pollinator_linkage_controlled, pollinator_linkage_restored])
+    pollinator_min_val = int(np.floor(all_pollinators.min()))
+    pollinator_max_val = int(np.ceil(all_pollinators.max()))
+    bins_pollinator = np.arange(pollinator_min_val - 0.5, pollinator_max_val + 1.5, 1)
+
+    plt.figure(figsize=(8, 5))
+    plt.hist(
+        [pollinator_linkage_controlled, pollinator_linkage_restored],
+        bins=bins_pollinator,
+        label=['Controlled', 'Restored'],
+        align='left',
+        edgecolor='black',
+        alpha=0.7
+    )
+    plt.title('Linkage Distribution for Pollinators')
+    plt.xlabel('Pollinator Degree (number of interactions)')
+    plt.ylabel('Number of pollinator nodes')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
 
 #evennesses = []
 controlled_families = ["gcontrolled_coleoptera.csv", "gcontrolled_diptera.csv", "gcontrolled_hymenoptera.csv", "gcontrolled_lepidoptera.csv", "gcontrolled_squamata.csv"]
@@ -259,16 +308,89 @@ plt.title("Bipartite Pollination Graph Restored")
 plt.savefig("restored_graph.jpeg", format='jpeg', dpi=300, bbox_inches='tight')
 plt.show()
 
-plant_info = pd.read_csv("controlled_sorted.csv", encoding='ISO-8859-1')
-pollinator_info = pd.read_csv("controlled_animal_sorted.csv", encoding='ISO-8859-1')
+plant_info_c = pd.read_csv("controlled_sorted.csv", encoding='ISO-8859-1')
+pollinator_info_c = pd.read_csv("controlled_animal_sorted.csv", encoding='ISO-8859-1')
 
-plant_linkage = plant_info.iloc[:, 8]
-plant_linkage = pd.to_numeric(plant_linkage, errors='coerce').dropna()
+plant_linkage_c = plant_info_c.iloc[:, 8]
+plant_linkage_c = pd.to_numeric(plant_linkage_c, errors='coerce').dropna()
 
-pollinator_linkage = pollinator_info.iloc[:, 8]
-pollinator_linkage = pd.to_numeric(pollinator_linkage, errors='coerce').dropna()
+pollinator_linkage_c = pollinator_info_c.iloc[:, 8]
+pollinator_linkage_c = pd.to_numeric(pollinator_linkage_c, errors='coerce').dropna()
 
-histo(plant_linkage, pollinator_linkage)
+plant_info_r = pd.read_csv("restored_sorted.csv", encoding='ISO-8859-1')
+pollinator_info_r = pd.read_csv("restored_animal_sorted.csv", encoding='ISO-8859-1')
+
+plant_linkage_r = plant_info_r.iloc[:, 8]
+plant_linkage_r = pd.to_numeric(plant_linkage_r, errors='coerce').dropna()
+
+pollinator_linkage_r = pollinator_info_r.iloc[:, 8]
+pollinator_linkage_r = pd.to_numeric(pollinator_linkage_r, errors='coerce').dropna()
+
+histo_side_by_side(plant_linkage_c, plant_linkage_r, pollinator_linkage_c, pollinator_linkage_r)
+
+# get the degree given the csv file (it is the same as the linkage!!!!)
+def degree(csv_path):
+    # Load the weighted adjacency matrix with headers and row names
+    df = pd.read_csv(csv_path, index_col=0)
+    
+    # Convert to binary (presence/absence)
+    binary_df = (df > 0).astype(int)
+
+    # Compute degrees
+    plant_degrees = binary_df.sum(axis=1)         # sum across columns
+    pollinator_degrees = binary_df.sum(axis=0)    # sum across rows
+    
+    all_degrees = pd.concat([plant_degrees, pollinator_degrees])
+
+    # Return Series with labels
+    return plant_degrees, pollinator_degrees, all_degrees
+
+plant_degrees_c, pollinator_degrees_c, all_degrees_c = degree("gcontrolled.csv")
+plant_degrees_r, pollinator_degrees_r, all_degrees_r = degree("grestored.csv")
 
 
 
+def classify_by_degree(degree_series, specialists_path, generalists_path, low_thresh=1, high_thresh=99):
+    """
+    Classify species by degree and save specialists and generalists in separate CSV files.
+
+    Parameters:
+    - degree_series: pd.Series with species names as index and degrees as values
+    - specialists_path: filepath to save specialists CSV
+    - generalists_path: filepath to save generalists CSV
+    - low_thresh: percentile cutoff for specialists (default 25)
+    - high_thresh: percentile cutoff for generalists (default 75)
+
+    Returns:
+    - classification: pd.Series with all classifications
+    """
+    import numpy as np
+
+    low = np.percentile(degree_series, low_thresh)
+    high = np.percentile(degree_series, high_thresh)
+
+    def classify(k):
+        if k <= low:
+            return "specialist"
+        elif k >= high:
+            return "generalist"
+        else:
+            return "intermediate"
+
+    classification = degree_series.apply(classify)
+
+    # Save specialists
+    specialists = classification[classification == "specialist"].reset_index()
+    specialists.columns = ['species', 'classification']
+    specialists.to_csv(specialists_path, index=False)
+
+    # Save generalists
+    generalists = classification[classification == "generalist"].reset_index()
+    generalists.columns = ['species', 'classification']
+    generalists.to_csv(generalists_path, index=False)
+
+    return classification
+
+
+classification_c = classify_by_degree(all_degrees_c, "specialists_controlled.txt", "generalists_controlled.txt")
+classification_r = classify_by_degree(all_degrees_r, "specialists_restored.txt", "generalists_restored.txt")

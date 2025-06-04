@@ -1,0 +1,4 @@
+species,classification
+Apis mellifera,generalist
+Technomyrmex albipes,generalist
+Aphloia theiformis,generalist

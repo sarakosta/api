@@ -1,0 +1,4 @@
+species,classification
+Chaetocnema sp,generalist
+Psiadia terebinthina,generalist
+Stillingia lineata ssp lineata,generalist
