@@ -1,7 +1,0 @@
-species,classification
-Ardisia crenate,specialist
-Clidemia hirta,specialist
-Erythrospermum monticolum var monticolum,specialist
-Ossaea marginata,specialist
-Pittosporum senacia,specialist
-Xylopia lamarckii ,specialist
