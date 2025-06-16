@@ -1,9 +1,11 @@
 #import numpy as np
 import pandas as pd
-#import networkx as nx
+import networkx as nx
 import matplotlib.pyplot as plt
 # import matplotlib.patches as mpatches
 import functions as f
+import graph_tool.all as gt
+import csv
 
 #evennesses = []
 # controlled_families = ["gcontrolled_coleoptera.csv", "gcontrolled_diptera.csv", "gcontrolled_hymenoptera.csv", "gcontrolled_lepidoptera.csv", "gcontrolled_squamata.csv"]
@@ -36,35 +38,33 @@ f.draw_network_order("data/grestored.csv", "data/restored_plants.csv", "data/res
 # plt.savefig("restored_graph.jpeg", format='jpeg', dpi=300, bbox_inches='tight')
 plt.show()
 
-plant_info_c = pd.read_csv("data/controlled_plants.csv", encoding='ISO-8859-1')
-pollinator_info_c = pd.read_csv("data/controlled_pollinators.csv", encoding='ISO-8859-1')
-
-plant_linkage_c = plant_info_c.iloc[:, 8]
-plant_linkage_c = pd.to_numeric(plant_linkage_c, errors='coerce').dropna()
-
-pollinator_linkage_c = pollinator_info_c.iloc[:, 8]
-pollinator_linkage_c = pd.to_numeric(pollinator_linkage_c, errors='coerce').dropna()
-
-plant_info_r = pd.read_csv("data/restored_plants.csv", encoding='ISO-8859-1')
-pollinator_info_r = pd.read_csv("data/restored_pollinators.csv", encoding='ISO-8859-1')
-
-plant_linkage_r = plant_info_r.iloc[:, 8]
-plant_linkage_r = pd.to_numeric(plant_linkage_r, errors='coerce').dropna()
-
-pollinator_linkage_r = pollinator_info_r.iloc[:, 8]
-pollinator_linkage_r = pd.to_numeric(pollinator_linkage_r, errors='coerce').dropna()
-
-linkage_name = "Linkage" 
-plant_kingdom_name = "Plants"
-f.histo_side_by_side(plant_linkage_c, plant_linkage_r, linkage_name, plant_kingdom_name)
-
+# define controlled graph
 G_c = f.create_network("data/gcontrolled.csv")
+# community detection
 partition_l_c, num_communities_l_c, modularity_c, communities_grouped_l_c = f.print_Louvain_communities(G_c, N_louvain=1000, network_type="controlled")
-partition_b_c, num_communities_b_c, optimal_bisbm_dl_c, communities_grouped_b_c, modularity_b_c = f.print_biSBM_communities(G_c, N_biSBM=1000, network_type="controlled")
-G_r = f.create_network("data/grestored.csv")
-partition_l_r, num_communities_l_r, modularity_r, communities_grouped_l_r = f.print_Louvain_communities(G_r, N_louvain=1000, network_type="restored")
-partition_b_r, num_communities_b_r, optimal_bisbm_dl_r, communities_grouped_b_r, modularity_b_r = f.print_biSBM_communities(G_r, N_biSBM=1000, network_type="restored")
+partition_b_c, num_communities_b_c, optimal_bisbm_dl_c, communities_grouped_b_c, modularity_b_c, _ = f.print_biSBM_communities(G_c, N_biSBM=1000, network_type="controlled")
+partition_plants_c, num_communities_plants_c, optimal_sbm_dl_plants_c, communities_grouped_plants_c, modularity_plants_c, state_plants_unipartite_c, partition_pollinators_c, num_communities_plants_c, optimal_sbm_dl_pollinators_c, communities_grouped_pollinators_c, modularity_pollinators_c, state_pollinators_unipartite_c = f.print_SBM_communities(G_c, N_SBM=1000, network_type="controlled")
+# degree
+plant_degrees_c, pollinator_degrees_c = f.degree(G_c)
 
+# define restored graph
+G_r = f.create_network("data/grestored.csv")
+# community detection
+partition_l_r, num_communities_l_r, modularity_r, communities_grouped_l_r = f.print_Louvain_communities(G_r, N_louvain=1000, network_type="restored")
+partition_b_r, num_communities_b_r, optimal_bisbm_dl_r, communities_grouped_b_r, modularity_b_r, _ = f.print_biSBM_communities(G_r, N_biSBM=1000, network_type="restored")
+partition_plants_r, num_communities_plants_r, optimal_sbm_dl_plants_r, communities_grouped_plants_r, modularity_plants_r, state_plants_unipartite_r, partition_pollinators_r, num_communities_plants_r, optimal_sbm_dl_pollinators_r, communities_grouped_pollinators_r, modularity_pollinators_r, state_pollinators_unipartite_r = f.print_SBM_communities(G_r, N_SBM=1000, network_type="restored")
+# degree
+plant_degrees_r, pollinator_degrees_r = f.degree(G_r)
+
+# draw the histogram for the degree side by side
+degree_name = "Linkage" 
+plant_kingdom_name = "Plants"
+pollinator_kingdom_name = "Pollinators"
+f.histo_side_by_side(plant_degrees_c, plant_degrees_r, degree_name, plant_kingdom_name)
+f.histo_side_by_side(pollinator_degrees_c, pollinator_degrees_r, degree_name, pollinator_kingdom_name)
+
+
+"""
 f.draw_network_communities(
     "data/gcontrolled.csv",
     "data/controlled_plants.csv",
@@ -88,7 +88,9 @@ f.draw_network_communities(
     min_spacing=0.02,
     min_size=100,
     scale_factor=100)
+"""
 
+"""
 f.draw_network_communities(
     "data/grestored.csv",
     "data/restored_plants.csv",
@@ -112,25 +114,33 @@ f.draw_network_communities(
     min_spacing=0.02,
     min_size=100,
     scale_factor=100)
+"""
 
-# get the degree given the csv file (it is the same as the linkage!!!!)
-def degree(csv_path):
-    # Load the weighted adjacency matrix with headers and row names
-    df = pd.read_csv(csv_path, index_col=0)
-    
-    # Convert to binary (presence/absence)
-    binary_df = (df > 0).astype(int)
+print("Modularities:", modularity_b_c, modularity_b_r, modularity_plants_c, modularity_pollinators_c, modularity_plants_r, modularity_pollinators_r)
 
-    # Compute degrees
-    plant_degrees = binary_df.sum(axis=1)         # sum across columns
-    pollinator_degrees = binary_df.sum(axis=0)    # sum across rows
-    
-    all_degrees = pd.concat([plant_degrees, pollinator_degrees])
+G_plants_c, G_pollinators_c = f.projections(G_c)
+adj_matrix_plants_c = nx.adjacency_matrix(G_plants_c)
+adj_matrix_plants_c = adj_matrix_plants_c.toarray()
 
-    # Return Series with labels
-    return plant_degrees, pollinator_degrees, all_degrees
+# Define the filename
+filename = 'adjacency_matrix_csv_module.csv'
 
-plant_degrees_c, pollinator_degrees_c, all_degrees_c = degree("data/gcontrolled.csv")
-plant_degrees_r, pollinator_degrees_r, all_degrees_r = degree("data/grestored.csv")
+# Open the file in write mode
+with open(filename, 'w', newline='') as csvfile:
+    # Create a CSV writer object
+    csv_writer = csv.writer(csvfile)
 
-print(modularity_b_c, modularity_b_r)
+    # Optional: Write a header row if you have vertex labels
+    # For example, if your vertices are 'V0', 'V1', 'V2', 'V3'
+    # vertices = ['V0', 'V1', 'V2', 'V3']
+    # csv_writer.writerow([''] + vertices) # Empty string for the top-left cell
+
+    # Write each row of the adjacency matrix
+    for row in adj_matrix_plants_c:
+        csv_writer.writerow(row)
+        # If you wanted to include vertex labels as the first column for each row:
+        # vertex_label_for_this_row = 'V' + str(adj_matrix.index(row)) # Example
+        # csv_writer.writerow([vertex_label_for_this_row] + row)
+
+
+print(f"Adjacency matrix saved to {filename}")

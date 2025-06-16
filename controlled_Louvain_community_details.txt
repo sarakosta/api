@@ -1,0 +1,52 @@
+
+Network loaded with 163 nodes and 533 edges. (controlled network)
+
+--- Performing Community Detection ---
+Detected 11 communities.
+Modularity of the partition: 0.4014
+
+--- Community Details ---
+Community 0:
+  Plants (9): Antidesma madagascariense, Aphloia theiformis, Badula insularis, Chassalia coriacea var coriacea, Erythroxylum macrocarpum, Gaertnera rotundifolia, Molinaea macrantha, Phyllanthus phillyreifolius var telfairianus, Turraea rigida
+  Pollinators (19): Calopsilia florella, Cheloninae sp 1, Eristalinus flaveolus, Eumolpinae sp 3, Eurytonidae sp 1, Gelechioidea sp 2, Gelechioidea sp 3, Lygaeidae sp 3, Macroglossum milvus, Melanostoma annulipes, Melanostoma bituberculatum, Mordellidae sp 3, Musca domestica, Panara naso, Pheidole megacephala, Psyllidae sp 2 , Sapromyza sp near nudiuscula, Scatopsidae sp, Technomyrmex albipes
+------------------------------
+Community 1:
+  Plants (8): Antirhea borbonica, Coffea macrocarpa, Coffea mauritiana, Dracaena reflexa var angustifolia, Embelia angustifolia, Gaertnera psychotrioides/edentata, Syzygium glomeratum, Tabernaemontana persicarifolia
+  Pollinators (8): Allograpta nasuta, Dasytinae sp, Episyrphus sp near circularis, Hippotion eson, Nacoleia sp 1, Nacoleia sp 2, Syritta nigrofemorata, Thysanoplusia orichalcea
+------------------------------
+Community 2:
+  Plants (1): Ardisia crenate
+  Pollinators (0): None
+------------------------------
+Community 3:
+  Plants (21): Badula platiphylla, Cordemoya integrifolia, Croton fothergillifolius, Croton grangeroides, Dodonaea viscosa , Eugenia orbiculata, Euodia obtusifolia ssp gigas var gigas, Flagellaria indica, Harungana madagascariensis, Helichrysum proteoides, Homalanthus populifolius, Molinaea alternifolia, Ochna mauritiana, Olea lancea, Psathura terniflora, Psidium cattleianum, Smilax anceps, Stillingia lineata ssp lineata, Toddalia asiatica, Tristhema mauritiana, Wikstroemia indica
+  Pollinators (37): Agathidinae sp, Ahasverus advena, Campopleginae sp, Cerambycidae sp 2, Cerambycidae sp 3, Chaetocnema sp, Cheloninae sp 3, Chrysomya megacephala, Cixiidae sp 1, Cixiidae sp 2, Cotesia sp 1, Cratopus psittacus, Diptera sp 3, Eumolpinae sp 2, Gelechioidea sp 1, Graphomya maculata, Homoneura sp 1, Hydrotaea fuliginosa, Ischiodon aegyptius, Lygaeidae sp 2, Mordellidae sp 2, Musca confiscate, Nitidulidae sp, Ophyra capensis, Pachycerina crinicornis, Palexorista sp, Pelecophora intemipta, Phalanta phalantha, Phorinia sp, Polistes hebraeus, Sarcophaga arno, Scirtidae sp 1, Scirtidae sp 2, Simulium (Byssodon) sp 2, Syritta sp near abyssinica, Thelairodrino sp, Villa unifasciata
+------------------------------
+Community 4:
+  Plants (1): Xylopia lamarckii 
+  Pollinators (0): None
+------------------------------
+Community 5:
+  Plants (14): Bertiera zaluzania, Calophyllum eputamen var eputamen, Casearia coriacea, Claoxylon linostachys ssp brachyphyllum, Diospyros revaughanii, Grangeria borbonica, Labourdonnaisia callophylloides, Rubus alcefolius, Sideroxylon cinereum, Sideroxylon puberulum, Syzygium commersonii, Syzygium petrinese, Trochetia blackburniana, Warneckea trinervis
+  Pollinators (17): Apis mellifera, Atherigona orientalis, Diptera sp 2, Fannia pusio, Henotesia narcissus, Homoneura sp 2, Limnophora quaterna, Lygistorrhina sp, Melanagromyza sojae , Nyctemera insulare, Orthellia albigena, Paragus borbonicus, Phelsuma cepediana, Scopariinae sp, Siphona sp , Stomoxys calcitrans, Zosterops mauritianus
+------------------------------
+Community 6:
+  Plants (1): Clidemia hirta
+  Pollinators (0): None
+------------------------------
+Community 7:
+  Plants (5): Doratoxylon apetalum var diphyllum, Faujasiopsis flexuosa ssp erecta, Myonima violacea var ovata, Psiadia terebinthina, Syzygium coriaceum
+  Pollinators (19): Brachymyrmex sp , Cerambycidae sp 1, Ceratitis roas, Cryptocephalinae sp, Dioxyna sororcula, Dysauxes florida, Goniurellia or Dectodes sp, Lecithoceridae sp 1, Leptotes pirithous , Lygaeidae sp 5, Mauritiborium undulatus, Miridae sp, Mordellidae sp 1, Orchisia costata, Ornidia obesa, Scolia carniflex, Stomorhina lunata, Stomoxys niger, Syritta bulbus
+------------------------------
+Community 8:
+  Plants (1): Ossaea marginata
+  Pollinators (0): None
+------------------------------
+Community 9:
+  Plants (1): Erythrospermum monticolum var monticolum
+  Pollinators (0): None
+------------------------------
+Community 10:
+  Plants (1): Pittosporum senacia
+  Pollinators (0): None
+------------------------------

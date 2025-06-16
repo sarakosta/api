@@ -1,0 +1,197 @@
+
+Network loaded with 163 nodes and 533 edges. (controlled network)
+
+--- Performing Stochastic Block Model Community Detection for A^T*A ---
+Detected 63 communities.
+Optimal Description Length (Entropy): 1545.4893
+
+--- Community Details ---
+Community 0:
+  Plants (63: Syzygium glomeratum, Faujasiopsis flexuosa ssp erecta, Coffea macrocarpa, Rubus alcefolius, Molinaea macrantha, Olea lancea, Gaertnera psychotrioides/edentata, Homalanthus populifolius, Wikstroemia indica, Trochetia blackburniana, Syzygium petrinese, Clidemia hirta, Embelia angustifolia, Flagellaria indica, Antidesma madagascariense, Doratoxylon apetalum var diphyllum, Diospyros revaughanii, Psidium cattleianum, Coffea mauritiana, Antirhea borbonica, Eugenia orbiculata, Pittosporum senacia, Warneckea trinervis, Xylopia lamarckii , Harungana madagascariensis, Badula platiphylla, Bertiera zaluzania, Chassalia coriacea var coriacea, Grangeria borbonica, Sideroxylon cinereum, Ardisia crenate, Cordemoya integrifolia, Badula insularis, Dodonaea viscosa , Euodia obtusifolia ssp gigas var gigas, Helichrysum proteoides, Myonima violacea var ovata, Tabernaemontana persicarifolia, Syzygium commersonii, Ossaea marginata, Croton grangeroides, Tristhema mauritiana, Claoxylon linostachys ssp brachyphyllum, Molinaea alternifolia, Calophyllum eputamen var eputamen, Psiadia terebinthina, Ochna mauritiana, Sideroxylon puberulum, Turraea rigida, Erythroxylum macrocarpum, Erythrospermum monticolum var monticolum, Gaertnera rotundifolia, Croton fothergillifolius, Dracaena reflexa var angustifolia, Aphloia theiformis, Casearia coriacea, Labourdonnaisia callophylloides, Psathura terniflora, Stillingia lineata ssp lineata, Toddalia asiatica, Syzygium coriaceum, Smilax anceps, Phyllanthus phillyreifolius var telfairianus
+------------------------------
+Community 1:
+  Plants (0: None
+------------------------------
+Community 2:
+  Plants (0: None
+------------------------------
+Community 3:
+  Plants (0: None
+------------------------------
+Community 4:
+  Plants (0: None
+------------------------------
+Community 5:
+  Plants (0: None
+------------------------------
+Community 6:
+  Plants (0: None
+------------------------------
+Community 7:
+  Plants (0: None
+------------------------------
+Community 8:
+  Plants (0: None
+------------------------------
+Community 9:
+  Plants (0: None
+------------------------------
+Community 10:
+  Plants (0: None
+------------------------------
+Community 11:
+  Plants (0: None
+------------------------------
+Community 12:
+  Plants (0: None
+------------------------------
+Community 13:
+  Plants (0: None
+------------------------------
+Community 14:
+  Plants (0: None
+------------------------------
+Community 15:
+  Plants (0: None
+------------------------------
+Community 16:
+  Plants (0: None
+------------------------------
+Community 17:
+  Plants (0: None
+------------------------------
+Community 18:
+  Plants (0: None
+------------------------------
+Community 19:
+  Plants (0: None
+------------------------------
+Community 20:
+  Plants (0: None
+------------------------------
+Community 21:
+  Plants (0: None
+------------------------------
+Community 22:
+  Plants (0: None
+------------------------------
+Community 23:
+  Plants (0: None
+------------------------------
+Community 24:
+  Plants (0: None
+------------------------------
+Community 25:
+  Plants (0: None
+------------------------------
+Community 26:
+  Plants (0: None
+------------------------------
+Community 27:
+  Plants (0: None
+------------------------------
+Community 28:
+  Plants (0: None
+------------------------------
+Community 29:
+  Plants (0: None
+------------------------------
+Community 30:
+  Plants (0: None
+------------------------------
+Community 31:
+  Plants (0: None
+------------------------------
+Community 32:
+  Plants (0: None
+------------------------------
+Community 33:
+  Plants (0: None
+------------------------------
+Community 34:
+  Plants (0: None
+------------------------------
+Community 35:
+  Plants (0: None
+------------------------------
+Community 36:
+  Plants (0: None
+------------------------------
+Community 37:
+  Plants (0: None
+------------------------------
+Community 38:
+  Plants (0: None
+------------------------------
+Community 39:
+  Plants (0: None
+------------------------------
+Community 40:
+  Plants (0: None
+------------------------------
+Community 41:
+  Plants (0: None
+------------------------------
+Community 42:
+  Plants (0: None
+------------------------------
+Community 43:
+  Plants (0: None
+------------------------------
+Community 44:
+  Plants (0: None
+------------------------------
+Community 45:
+  Plants (0: None
+------------------------------
+Community 46:
+  Plants (0: None
+------------------------------
+Community 47:
+  Plants (0: None
+------------------------------
+Community 48:
+  Plants (0: None
+------------------------------
+Community 49:
+  Plants (0: None
+------------------------------
+Community 50:
+  Plants (0: None
+------------------------------
+Community 51:
+  Plants (0: None
+------------------------------
+Community 52:
+  Plants (0: None
+------------------------------
+Community 53:
+  Plants (0: None
+------------------------------
+Community 54:
+  Plants (0: None
+------------------------------
+Community 55:
+  Plants (0: None
+------------------------------
+Community 56:
+  Plants (0: None
+------------------------------
+Community 57:
+  Plants (0: None
+------------------------------
+Community 58:
+  Plants (0: None
+------------------------------
+Community 59:
+  Plants (0: None
+------------------------------
+Community 60:
+  Plants (0: None
+------------------------------
+Community 61:
+  Plants (0: None
+------------------------------
+Community 62:
+  Plants (0: None
+------------------------------
