@@ -43,18 +43,75 @@ def create_network(file_path):
                 G.add_edge(pollinator, plant, weight=adj_matrix[i, j])
     return G
 
-# draw bar chart for centrality measures of each species
-def bar_chart(species, centrality_measure, name, common_names):
+# draw bar chart for centrality measures of each species, differentiating
+# the color for species in common between the two network or not
+def bar_chart_ER(species, centrality_measure_values, cm_name, kingdom_type, graph_type):
+    """
+    Plots a bar chart of centrality measures, highlighting common species names,
+    and includes error bars based on standard deviation.
+
+    Args:
+        centrality_measures_dict (dict): A dictionary where keys are species names
+                                         and values are their corresponding centrality measures (means).
+        std_dev_dict (dict): A dictionary where keys are species names
+                             and values are their corresponding standard deviations.
+                             Must have the same keys as centrality_measures_dict.
+        common_names (set or list): A collection of common species names to highlight.
+        cm_name (str): The name of the centrality measure (e.g., "Betweenness Centrality").
+        kingdom_type (str): The type of kingdom (e.g., "Plants", "Pollinators").
+        graph_type (str): The type of graph (e.g., "Food Web", "ER Graph").
+        is_ER (bool): True if the plot is for Erdos-Renyi graphs (mean values), False otherwise.
+    """    
     plt.figure(figsize=(20, 10), dpi=100)
-    bars = plt.bar(species, centrality_measure,
+    # Add yerr argument for error bars
+    plt.bar(species, centrality_measure_values, capsize=5,  # capsize adds caps to error bars
                    color='lightcoral', edgecolor='black')
 
-    # color bars if they are in common
+    plt.xticks(rotation=90)  # Rotate x labels for readability
+
+    plt.xlabel("Species Names")
+    plt.ylabel(f'{cm_name}')
+    # The title will be updated later based on is_ER
+    
+    plt.tight_layout()  # Fix layout for better spacing
+
+    plt.title(f'Mean {cm_name} over a distribution of ER graphs built from the {graph_type} graph for {kingdom_type}')
+    # Save the plot
+    plt.savefig(f'{graph_type}_{kingdom_type}_{cm_name}_ER.png')
+
+    plt.show()
+
+# Generates a bar chart of species centrality measures, coloring bars
+# based if they are in common in the two sites or not
+def bar_chart_common_names(centrality_measures_dict, common_names, cm_name, kingdom_type, graph_type):
+    """
+    Plots a bar chart of centrality measures, highlighting common species names,
+    without including error bars.
+
+    Args:
+        centrality_measures_dict (dict): A dictionary where keys are species names
+                                         and values are their corresponding centrality measures (means).
+        common_names (set or list): A collection of common species names to highlight.
+        cm_name (str): The name of the centrality measure (e.g., "Betweenness Centrality").
+        kingdom_type (str): The type of kingdom (e.g., "Plants", "Pollinators").
+        graph_type (str): The type of graph (e.g., "Food Web", "ER Graph").
+        is_ER (bool): True if the plot is for Erdos-Renyi graphs (mean values), False otherwise.
+    """
+    # Extract species names (keys) and centrality values (values) from the input dictionary
+    species = list(centrality_measures_dict.keys())
+    centrality_measure_values = list(centrality_measures_dict.values())
+    
+    plt.figure(figsize=(20, 10), dpi=100)
+    # Plot bars without yerr argument
+    bars = plt.bar(species, centrality_measure_values,
+                   color='lightcoral', edgecolor='black')
+
+    # Color bars if they are in common
     for bar, label in zip(bars, species):
         if label in common_names:
             bar.set_color('blue')  # Highlighted color
         else:
-            bar.set_color('red')  # Default color
+            bar.set_color('red')   # Default color
 
     plt.xticks(rotation=90)  # Rotate x labels for readability
 
@@ -63,12 +120,113 @@ def bar_chart(species, centrality_measure, name, common_names):
         if tick.get_text() in common_names:
             tick.set_color('blue')  # Highlighted label
         else:
-            tick.set_color('red')   # Default label
-    plt.xlabel("Species")
-    plt.ylabel(f'{name}')
-    plt.title(f'{name} Species')
+            tick.set_color('red')    # Default label
+
+    plt.xlabel("Species Names")
+    plt.ylabel(f'{cm_name}')
+    # The title will be updated later based on is_ER
+    
+    # Add Legend
+    blue_patch = mpatches.Patch(color='blue', label='Common Name')
+    red_patch = mpatches.Patch(color='red', label='Other Species')
+    plt.legend(handles=[blue_patch, red_patch])
+    
     plt.tight_layout()  # Fix layout for better spacing
+
+
+    plt.title(f'{cm_name} for {kingdom_type.capitalize()} for the {graph_type} Graph')
+    # Save the plot
+    plt.savefig(f'{graph_type}_{kingdom_type}_{cm_name}.png')
+    
     plt.show()
+
+# Generates a bar chart of species centrality measures, coloring bars
+# based on their origin (Introduced, Native, Endemic, Unknown) read from a CSV file
+def bar_chart_species_origin(centrality_measures_dict, file_path, cm_name, kingdom_type, graph_type):
+    """
+    Plots a bar chart of centrality measures, coloring bars and labels based on species origin.
+
+    Args:
+        centrality_measures_dict (dict): A dictionary where keys are species names
+                                         and values are their corresponding centrality measures.
+        name (str): The name of the centrality measure (e.g., "Betweenness Centrality").
+        file_path (str): The path to the CSV file containing species origin data.
+        kingdom_type (str): The type of kingdom ("plants" or "pollinators") to determine
+                            which columns to read from the CSV.
+    """
+    plt.figure(figsize=(20, 10), dpi=100)
+
+    # Extract species names (keys) and centrality values (values) from the input dictionary
+    species = list(centrality_measures_dict.keys())
+    centrality_measure_values = list(centrality_measures_dict.values())
+
+    # Determine column indices based on kingdom_type
+    if kingdom_type.lower() == "plants":
+        species_col_idx = 2  # 3rd column (0-indexed)
+        origin_col_idx = 4   # 5th column (0-indexed)
+    elif kingdom_type.lower() == "pollinators":
+        species_col_idx = 3  # 4th column (0-indexed)
+        origin_col_idx = 5   # 6th column (0-indexed)
+    else:
+        print("Error: Invalid 'kingdom_type'. Please use 'plants' or 'pollinators'.")
+        plt.close() # Close the figure if there's an error
+        return
+
+    # Read the CSV file to get species origins
+    df_origin = pd.read_csv(file_path)
+
+    # Extract species names and origins from the specified columns
+    csv_species = df_origin.iloc[:, species_col_idx].tolist()
+    csv_origins = df_origin.iloc[:, origin_col_idx].tolist()
+
+    # Create a dictionary to map species names to their origins for quick lookup
+    species_to_origin = dict(zip(csv_species, csv_origins))
+
+    # Define colors based on origin
+    color_map = {
+        'I': 'red',     # Introduced
+        'N': 'blue',    # Native
+        'E': 'green',   # Endemic
+        'Un': 'purple'  # Unknown (specific to pollinators, but can be generally included)
+    }
+    default_color = 'gray' # For any unknown origin or species not found in CSV
+
+    # Determine colors for bars and labels based on the input 'species' list (extracted from dict keys)
+    bar_colors = []
+    label_colors = []
+    for s_name in species:
+        origin = species_to_origin.get(s_name, None) # Get origin for the current species
+        bar_colors.append(color_map.get(origin, default_color))
+        label_colors.append(color_map.get(origin, default_color))
+
+    # Plot the bars directly with the determined colors
+    plt.bar(species, centrality_measure_values, color=bar_colors, edgecolor='black')
+
+    plt.xticks(rotation=90) # Rotate x labels for readability
+
+    ax = plt.gca() # get current axis
+    for i, tick in enumerate(ax.get_xticklabels()):
+        tick.set_color(label_colors[i]) # Set color based on the determined label_colors
+        
+    # Add Legend
+    legend_patches = []
+    legend_patches.append(mpatches.Patch(color=color_map['I'], label='Introduced'))
+    legend_patches.append(mpatches.Patch(color=color_map['N'], label='Native'))
+    legend_patches.append(mpatches.Patch(color=color_map['E'], label='Endemic'))
+    if 'Un' in color_map: # Only add 'Unknown' if it's explicitly in the map
+        legend_patches.append(mpatches.Patch(color=color_map['Un'], label='Unknown'))
+    legend_patches.append(mpatches.Patch(color=default_color, label='Other/Not Found'))
+    
+    plt.legend(handles=legend_patches, loc='best')
+
+    plt.xlabel("Species Names")
+    plt.ylabel(f'{cm_name}')
+    plt.title(f'{cm_name} for {kingdom_type.capitalize()} for the {graph_type} Graph')
+    # Save the plot
+    plt.savefig(f'{graph_type}_{kingdom_type}_{cm_name}.png')
+    plt.tight_layout() # Fix layout for better spacing
+    plt.show()
+
 
 # draw histogram for controlled and restored side by side
 def histo_side_by_side(data_controlled, data_restored, data_name, kingdom_name):
@@ -99,6 +257,40 @@ def histo_side_by_side(data_controlled, data_restored, data_name, kingdom_name):
     plt.grid(True)
     plt.show()
 
+# fit the degree distribution to a gaussian to see if we have a ER graph or not
+def gaussian_fit_histo(data, data_name, kingdom_name, histo_color):
+    plt.figure()
+    # make the data an np.array
+    data = np.array(data)
+    
+    # do a gaussian fit
+    mu, sigma = sc.norm.fit(data)
+
+    # do a KS test     
+    D, p_value = sc.kstest(data, 'norm', args=(mu, sigma))
+
+    min_val = int(np.floor(data.min()))
+    max_val = int(np.ceil(data.max()))
+    
+    label_histo = f'Histogram of {data_name} {kingdom_name}'
+    bins_data = np.arange(min_val - 0.5, max_val + 1.5, 1)
+    plt.hist(data, bins=bins_data, color = histo_color ,density=True, alpha=0.7, edgecolor='black', label=label_histo)
+
+    # Plot the Gaussian on top of the histogram
+    xmin, xmax = plt.xlim()
+    x = np.linspace(xmin, xmax, 100)
+    p = sc.norm.pdf(x, mu, sigma)
+    plt.plot(x, p, 'k', linewidth=2, label=f'Fit results: $\mu$ = {mu:.2f},  $\sigma$ = {sigma:.2f}, p_value = {p_value:.2e}')
+
+    # Add labels and title
+    plt.xlabel('Degree')
+    plt.ylabel('Density')
+    plt.title(f'{kingdom_name} Degrees with Gaussian Fit for {data_name} site')
+    plt.legend(loc='upper right', fontsize='small')
+    plt.grid(True)
+
+    # Save the plot
+    plt.savefig(f'{data_name}_{kingdom_name}_gaussian.png')
 
 # define a bipartitite weighted Erdos-Renyi graph with same density
 # as our graphs and weights sampled from the adjacency matrix
@@ -127,7 +319,6 @@ def create_erdos_renyi(file_path):
 
     return G_er
 
-
 # -- CENTRALITY MEASURES --
 
 # get the degree from the graph
@@ -141,24 +332,40 @@ def degree(graph):
 
     return plant_degrees, pollinator_degrees
 
-def binomial_fit(degrees):
-    degrees = np.array(degrees)
-    sc.fit(sc.binom, degrees)
-
-    fit_result = sc.fit(sc.binom, degrees, bounds={"n":[35, 40]})
-    return fit_result
-
 # get the weighted degree from the graph
 def weighted_degree(graph):
-    plants = {n for n, d in graph.nodes(data=True) if d['bipartite'] == 0}
-    pollinators = {n for n, d in graph.nodes(data=True) if d['bipartite'] == 1}
+    """
+    Calculates the weighted degree for plants and pollinators in a bipartite graph.
+    Assumes the graph nodes have a 'bipartite' attribute (0 for plants, 1 for pollinators).
+    The 'weight' attribute of edges is used for weighted degree calculation.
 
-    # Get degrees of all nodes
-    plant_w_degrees = [graph.degree(p, weight='weight') for p in plants]
-    pollinator_w_degrees = [graph.degree(
-        p, weight='weight') for p in pollinators]
+    Args:
+        graph (networkx.Graph): The bipartite graph.
 
-    return plant_w_degrees, pollinator_w_degrees
+    Returns:
+        tuple: A tuple containing two dictionaries:
+               - plant_w_degrees_dict: {plant_name: weighted_degree_value}
+               - pollinator_w_degrees_dict: {pollinator_name: weighted_degree_value}
+    """
+    # Separate nodes into plants and pollinators based on the 'bipartite' attribute
+    # Assuming 'bipartite' == 0 for plants and 'bipartite' == 1 for pollinators
+    plants = {n for n, d in graph.nodes(data=True) if d.get('bipartite') == 0}
+    pollinators = {n for n, d in graph.nodes(data=True) if d.get('bipartite') == 1}
+
+    # Initialize dictionaries to store weighted degrees for plants and pollinators
+    plant_w_degrees_dict = {}
+    pollinator_w_degrees_dict = {}
+
+    # Calculate weighted degree for each plant and store it in the dictionary
+    for plant_node in plants:
+        # graph.degree(node, weight='weight') returns the sum of edge weights incident to the node
+        plant_w_degrees_dict[plant_node] = graph.degree(plant_node, weight='weight')
+    
+    # Calculate weighted degree for each pollinator and store it in the dictionary
+    for pollinator_node in pollinators:
+        pollinator_w_degrees_dict[pollinator_node] = graph.degree(pollinator_node, weight='weight')
+
+    return plant_w_degrees_dict, pollinator_w_degrees_dict
 
 # get the betweenness centrality from the graph
 def betweenness_centrality(graph):
@@ -181,10 +388,7 @@ def closeness_centrality(graph):
     pollinator_ccw = {n: closeness[n] for n in pollinators}
     return plant_ccw, pollinator_ccw
 
-# function that given the number of runs, the adjecency matrix, the common plant and
-# pollinators and the type of the graph (controlled or restored) computes and draw in bar
-# charts all the centrality measures whose functions were defined above
-def centrality_measures(N_ER, file_path, common_plants, common_pollinators, graph_type):
+def centrality_measures_ER(N_ER, file_path):
     rows, cols, adj_matrix = load_adjacency_matrix(file_path)
 
     num_plants = len(cols)
@@ -223,79 +427,30 @@ def centrality_measures(N_ER, file_path, common_plants, common_pollinators, grap
 
         # weighted degree
         wd_plants, wd_pollinators = weighted_degree(erdos_renyi_graph)
+        wd_plants_values = list(wd_plants.values())
+        wd_pollinators_values = list(wd_pollinators.values())
         for i in range(num_plants):
-            sum_wd_plants[i] += wd_plants[i]
+            sum_wd_plants[i] += wd_plants_values[i]
         for i in range(num_pollinators):
-            sum_wd_pollinators[i] += wd_pollinators[i]
+            sum_wd_pollinators[i] += wd_pollinators_values[i]
 
-    # species names
-    restored_graph = create_network(file_path)
-    bc_plants, bc_pollinators = betweenness_centrality(restored_graph)
-    species_plant = list(bc_plants.keys())
-    species_pollinators = list(bc_pollinators.keys())
-
-    # plot average betweennes centrality
+    # average betweennes centrality
     mean_bc_plants = sum_bc_plants / N_ER
-    mean_bc_plants_name = f'Mean Betweennes Centrality for plants over {N_ER} Erdos-Renyi graphs'
-    bar_chart(species_plant, mean_bc_plants,
-              mean_bc_plants_name, common_plants)
     mean_bc_pollinators = sum_bc_pollinators / N_ER
-    mean_bc_pollinators_name = f'Mean Betweennes Centrality for pollinators over {N_ER} Erdos-Renyi graphs'
-    bar_chart(species_pollinators, mean_bc_pollinators,
-              mean_bc_pollinators_name, common_pollinators)
-
-    # betweennes centrality distribution for our network
-    bc_plant_restored, bc_pollinator_restored = betweenness_centrality(
-        restored_graph)
-    bc_plants_values_restored = list(bc_plant_restored.values())
-    bc_pollinators_values_restored = list(bc_pollinator_restored.values())
-    bc_plants_name_restored = f'Betweennes Centrality for plants for the {graph_type} network'
-    bar_chart(species_plant, bc_plants_values_restored,
-              bc_plants_name_restored, common_plants)
-    bc_pollinators_name_restored = f'Betweennes Centrality for pollinators for the {graph_type} network'
-    bar_chart(species_pollinators, bc_pollinators_values_restored,
-              bc_pollinators_name_restored, common_pollinators)
-
-    # plot average closeness centrality
+    
+    # average closeness centrality
     mean_cc_plants = sum_cc_plants / N_ER
-    mean_cc_plants_name = f'Mean Closeness Centrality for plants over {N_ER} Erdos-Renyi graphs'
-    bar_chart(species_plant, mean_cc_plants,
-              mean_cc_plants_name, common_plants)
     mean_cc_pollinators = sum_cc_pollinators / N_ER
-    mean_cc_pollinators_name = f'Mean Closeness Centrality for pollinators over {N_ER} Erdos-Renyi graphs'
-    bar_chart(species_pollinators, mean_cc_pollinators,
-              mean_cc_pollinators_name, common_pollinators)
-
-    # closeness centrality distribution for our network
-    cc_plant_restored, cc_pollinator_restored = closeness_centrality(
-        restored_graph)
-    cc_plants_values_restored = list(cc_plant_restored.values())
-    cc_pollinators_values_restored = list(cc_pollinator_restored.values())
-    cc_plants_name_restored = f'Closeness Centrality for plants for the {graph_type} network'
-    bar_chart(species_plant, cc_plants_values_restored,
-              cc_plants_name_restored, common_plants)
-    cc_pollinators_name_restored = f'Closeness Centrality for pollinators for the {graph_type} network'
-    bar_chart(species_pollinators, cc_pollinators_values_restored,
-              cc_pollinators_name_restored, common_pollinators)
-
+    
     # plot average weighted degree
     mean_wd_plants = sum_wd_plants / N_ER
-    mean_wd_plants_name = f'Mean Weighted Degree for plants over {N_ER} Erdos-Renyi graphs'
-    bar_chart(species_plant, mean_wd_plants,
-              mean_wd_plants_name, common_plants)
     mean_wd_pollinators = sum_wd_pollinators / N_ER
-    mean_wd_pollinators_name = f'Mean Weighted Degree for pollinators over {N_ER} Erdos-Renyi graphs'
-    bar_chart(species_pollinators, mean_wd_pollinators,
-              mean_wd_pollinators_name, common_pollinators)
 
-    # weighted degree distribution for our network
-    plant_wd_api, pollinator_wd_api = weighted_degree(restored_graph)
-    wd_plants_name_api = f'Weighted Degree for plants for the {graph_type} network'
-    bar_chart(species_plant, plant_wd_api, wd_plants_name_api, common_plants)
-    wd_pollinators_name_api = f'Weighted Degree for pollinators for the {graph_type} network'
-    bar_chart(species_pollinators, pollinator_wd_api,
-              wd_pollinators_name_api, common_pollinators)
+    return (mean_bc_plants, mean_bc_pollinators,
+            mean_cc_plants, mean_cc_pollinators,
+            mean_wd_plants, mean_wd_pollinators)
 
+def test_ks_mw(plant_wd_api, mean_wd_plants, bc_plants_values, mean_bc_plants, cc_plants_values, mean_cc_plants, graph_type):
     # mannwhitney test for p-value for weighted degree
     statistic_mw_wd, p_value_mw_wd = sc.mannwhitneyu(
         plant_wd_api, mean_wd_plants, alternative='two-sided')
@@ -308,23 +463,23 @@ def centrality_measures(N_ER, file_path, common_plants, common_pollinators, grap
 
     # mannwhitney test for p-value for betweennes centrality
     statistic_mw_bc, p_value_mw_bc = sc.mannwhitneyu(
-        bc_plants_values_restored, mean_bc_plants, alternative='two-sided')
+        bc_plants_values, mean_bc_plants, alternative='two-sided')
     print(
         f'Betweennees Centrality Mann-Withney for {graph_type} network', statistic_mw_bc, p_value_mw_bc)
 
     statistic_ks_bc, p_value_ks_bc = sc.ks_2samp(
-        bc_plants_values_restored, mean_bc_plants)
+        bc_plants_values, mean_bc_plants)
     print(
         f'Betweennees Centrality Kolmogorov-Smirnov for {graph_type} network', statistic_ks_bc, p_value_ks_bc)
 
     # mannwhitney test for p-value for closeness centrality
     statistic_mw_cc, p_value_mw_cc = sc.mannwhitneyu(
-        cc_plants_values_restored, mean_cc_plants, alternative='two-sided')
+        cc_plants_values, mean_cc_plants, alternative='two-sided')
     print(
         f'Closenness Centrality Mann-Withney for {graph_type} network', statistic_mw_bc, p_value_mw_cc)
 
     statistic_ks_cc, p_value_ks_cc = sc.ks_2samp(
-        cc_plants_values_restored, mean_cc_plants)
+        cc_plants_values, mean_cc_plants)
     print(
         f'Closeness Centrality Kolmogorov-Smirnov for {graph_type} network', statistic_ks_cc, p_value_ks_cc)
 
