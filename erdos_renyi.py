@@ -83,3 +83,9 @@ f.bar_chart_species_origin(wd_pollinators_r, file_path = "data/restored_pollinat
 f.test_ks_mw(list(wd_plants_c.values()), mean_wd_plants_c, list(bc_plants_c.values()), mean_bc_plants_c, list(cc_plants_c.values()), mean_cc_plants_c, graph_type = "Control")
 f.test_ks_mw(list(wd_plants_r.values()), mean_wd_plants_r, list(bc_plants_r.values()), mean_bc_plants_r, list(cc_plants_r.values()), mean_cc_plants_r, graph_type = "Restored")
 
+# -- Degree side by side --
+plant_degrees_c, pollinator_degrees_c = f.degree(G_c)
+plant_degrees_r, pollinator_degrees_r = f.degree(G_r)
+# draw the histogram for the degree side by side
+f.histo_side_by_side(plant_degrees_c, plant_degrees_r, data_name="Linkage", kingdom_name="Plants")
+f.histo_side_by_side(pollinator_degrees_c, pollinator_degrees_r, data_name="Linkage", kingdom_name="Pollinators")

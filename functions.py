@@ -62,23 +62,20 @@ def bar_chart_ER(species, centrality_measure_values, cm_name, kingdom_type, grap
         graph_type (str): The type of graph (e.g., "Food Web", "ER Graph").
         is_ER (bool): True if the plot is for Erdos-Renyi graphs (mean values), False otherwise.
     """    
-    plt.figure(figsize=(20, 10), dpi=100)
+    plt.figure(figsize=(35, 15), dpi=100)
     # Add yerr argument for error bars
-    plt.bar(species, centrality_measure_values, capsize=5,  # capsize adds caps to error bars
-                   color='lightcoral', edgecolor='black')
+    plt.bar(species, centrality_measure_values,
+                   color='#1f77b4', edgecolor='black')
 
-    plt.xticks(rotation=90)  # Rotate x labels for readability
+    plt.xticks(fontsize = 18, rotation=90)  # Rotate x labels for readability
 
-    plt.xlabel("Species Names")
-    plt.ylabel(f'{cm_name}')
+    plt.xlabel("Species Names", fontsize=25)
+    plt.ylabel(f'{cm_name}', fontsize=25)
     # The title will be updated later based on is_ER
-    
+    plt.title(f'Mean {cm_name} over a distribution of ER graphs built from the {graph_type} graph for {kingdom_type}', fontsize=25)
     plt.tight_layout()  # Fix layout for better spacing
-
-    plt.title(f'Mean {cm_name} over a distribution of ER graphs built from the {graph_type} graph for {kingdom_type}')
     # Save the plot
     plt.savefig(f'{graph_type}_{kingdom_type}_{cm_name}_ER.png')
-
     plt.show()
 
 # Generates a bar chart of species centrality measures, coloring bars
@@ -101,7 +98,7 @@ def bar_chart_common_names(centrality_measures_dict, common_names, cm_name, king
     species = list(centrality_measures_dict.keys())
     centrality_measure_values = list(centrality_measures_dict.values())
     
-    plt.figure(figsize=(20, 10), dpi=100)
+    plt.figure(figsize=(35, 15), dpi=100)
     # Plot bars without yerr argument
     bars = plt.bar(species, centrality_measure_values,
                    color='lightcoral', edgecolor='black')
@@ -113,7 +110,7 @@ def bar_chart_common_names(centrality_measures_dict, common_names, cm_name, king
         else:
             bar.set_color('red')   # Default color
 
-    plt.xticks(rotation=90)  # Rotate x labels for readability
+    plt.xticks(fontsize = 18, rotation=90)  # Rotate x labels for readability
 
     ax = plt.gca()  # get current axis
     for tick in ax.get_xticklabels():
@@ -122,22 +119,18 @@ def bar_chart_common_names(centrality_measures_dict, common_names, cm_name, king
         else:
             tick.set_color('red')    # Default label
 
-    plt.xlabel("Species Names")
-    plt.ylabel(f'{cm_name}')
+    plt.xlabel("Species Names", fontsize=25)
+    plt.ylabel(f'{cm_name}', fontsize=25)
     # The title will be updated later based on is_ER
     
     # Add Legend
     blue_patch = mpatches.Patch(color='blue', label='Common Name')
     red_patch = mpatches.Patch(color='red', label='Other Species')
-    plt.legend(handles=[blue_patch, red_patch])
-    
+    plt.legend(handles=[blue_patch, red_patch], fontsize=18)
+    plt.title(f'{cm_name} for {kingdom_type.capitalize()} for the {graph_type} Graph', fontsize=25)
     plt.tight_layout()  # Fix layout for better spacing
-
-
-    plt.title(f'{cm_name} for {kingdom_type.capitalize()} for the {graph_type} Graph')
     # Save the plot
     plt.savefig(f'{graph_type}_{kingdom_type}_{cm_name}.png')
-    
     plt.show()
 
 # Generates a bar chart of species centrality measures, coloring bars
@@ -154,7 +147,7 @@ def bar_chart_species_origin(centrality_measures_dict, file_path, cm_name, kingd
         kingdom_type (str): The type of kingdom ("plants" or "pollinators") to determine
                             which columns to read from the CSV.
     """
-    plt.figure(figsize=(20, 10), dpi=100)
+    plt.figure(figsize=(35, 15), dpi=100)
 
     # Extract species names (keys) and centrality values (values) from the input dictionary
     species = list(centrality_measures_dict.keys())
@@ -202,7 +195,7 @@ def bar_chart_species_origin(centrality_measures_dict, file_path, cm_name, kingd
     # Plot the bars directly with the determined colors
     plt.bar(species, centrality_measure_values, color=bar_colors, edgecolor='black')
 
-    plt.xticks(rotation=90) # Rotate x labels for readability
+    plt.xticks(fontsize = 18, rotation=90) # Rotate x labels for readability
 
     ax = plt.gca() # get current axis
     for i, tick in enumerate(ax.get_xticklabels()):
@@ -217,14 +210,14 @@ def bar_chart_species_origin(centrality_measures_dict, file_path, cm_name, kingd
         legend_patches.append(mpatches.Patch(color=color_map['Un'], label='Unknown'))
     legend_patches.append(mpatches.Patch(color=default_color, label='Other/Not Found'))
     
-    plt.legend(handles=legend_patches, loc='best')
+    plt.legend(handles=legend_patches, loc='best', fontsize=18)
 
-    plt.xlabel("Species Names")
-    plt.ylabel(f'{cm_name}')
-    plt.title(f'{cm_name} for {kingdom_type.capitalize()} for the {graph_type} Graph')
-    # Save the plot
-    plt.savefig(f'{graph_type}_{kingdom_type}_{cm_name}.png')
+    plt.xlabel("Species Names", fontsize=25)
+    plt.ylabel(f'{cm_name}', fontsize=25)
+    plt.title(f'{cm_name} for {kingdom_type.capitalize()} for the {graph_type} Graph coloured for Species Origin', fontsize=25)
     plt.tight_layout() # Fix layout for better spacing
+    # Save the plot
+    plt.savefig(f'{graph_type}_{kingdom_type}_{cm_name}_species_origin.png')
     plt.show()
 
 
@@ -255,6 +248,7 @@ def histo_side_by_side(data_controlled, data_restored, data_name, kingdom_name):
     plt.ylabel('Occurences')
     plt.legend()
     plt.grid(True)
+    plt.savefig(f'{data_name}_{kingdom_name}_degree.png')
     plt.show()
 
 # fit the degree distribution to a gaussian to see if we have a ER graph or not
