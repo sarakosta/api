@@ -1,0 +1,12 @@
+Weighted Degrees Mann-Withney for Control network 654.0 8.602425364198685e-11
+Weighted Degrees Kolmogorov-Smirnov for Control network 0.8095238095238095 6.452454297580998e-21
+Betweennees Centrality Mann-Withney for Control network 904.0 1.0516792649716517e-07
+Betweennees Centrality Kolmogorov-Smirnov for Control network 0.7619047619047619 3.4100724620077296e-18
+Closenness Centrality Mann-Withney for Control network 904.0 3.6374395256716543e-22
+Closeness Centrality Kolmogorov-Smirnov for Control network 1.0 3.3140376607052e-37
+Weighted Degrees Mann-Withney for Restored network 592.0 1.9036493426498558e-16
+Weighted Degrees Kolmogorov-Smirnov for Restored network 0.8918918918918919 4.03181322329686e-31
+Betweennees Centrality Mann-Withney for Restored network 1033.0 5.4785814359211317e-11
+Betweennees Centrality Kolmogorov-Smirnov for Restored network 0.8108108108108109 1.2595857613256922e-24
+Closenness Centrality Mann-Withney for Restored network 1033.0 8.792000450640778e-26
+Closeness Centrality Kolmogorov-Smirnov for Restored network 1.0 8.560813453813711e-44
