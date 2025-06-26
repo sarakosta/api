@@ -693,7 +693,6 @@ def draw_network_origin(
     plt.legend(handles=legend_patches, loc='upper left',
                bbox_to_anchor=(0.05, 0.15), fontsize=30, title="Node Categories")
     plt.axis('off')
-    plt.show()
 
 def draw_network_communities(
     file_adj_matrix,
