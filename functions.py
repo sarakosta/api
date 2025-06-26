@@ -46,22 +46,6 @@ def create_network(file_path):
 # draw bar chart for centrality measures of each species, differentiating
 # the color for species in common between the two network or not
 def bar_chart_ER(species, centrality_measure_values, cm_name, kingdom_type, graph_type):
-    """
-    Plots a bar chart of centrality measures, highlighting common species names,
-    and includes error bars based on standard deviation.
-
-    Args:
-        centrality_measures_dict (dict): A dictionary where keys are species names
-                                         and values are their corresponding centrality measures (means).
-        std_dev_dict (dict): A dictionary where keys are species names
-                             and values are their corresponding standard deviations.
-                             Must have the same keys as centrality_measures_dict.
-        common_names (set or list): A collection of common species names to highlight.
-        cm_name (str): The name of the centrality measure (e.g., "Betweenness Centrality").
-        kingdom_type (str): The type of kingdom (e.g., "Plants", "Pollinators").
-        graph_type (str): The type of graph (e.g., "Food Web", "ER Graph").
-        is_ER (bool): True if the plot is for Erdos-Renyi graphs (mean values), False otherwise.
-    """    
     plt.figure(figsize=(35, 15), dpi=100)
     # Add yerr argument for error bars
     plt.bar(species, centrality_measure_values,
@@ -81,19 +65,6 @@ def bar_chart_ER(species, centrality_measure_values, cm_name, kingdom_type, grap
 # Generates a bar chart of species centrality measures, coloring bars
 # based if they are in common in the two sites or not
 def bar_chart_common_names(centrality_measures_dict, common_names, cm_name, kingdom_type, graph_type):
-    """
-    Plots a bar chart of centrality measures, highlighting common species names,
-    without including error bars.
-
-    Args:
-        centrality_measures_dict (dict): A dictionary where keys are species names
-                                         and values are their corresponding centrality measures (means).
-        common_names (set or list): A collection of common species names to highlight.
-        cm_name (str): The name of the centrality measure (e.g., "Betweenness Centrality").
-        kingdom_type (str): The type of kingdom (e.g., "Plants", "Pollinators").
-        graph_type (str): The type of graph (e.g., "Food Web", "ER Graph").
-        is_ER (bool): True if the plot is for Erdos-Renyi graphs (mean values), False otherwise.
-    """
     # Extract species names (keys) and centrality values (values) from the input dictionary
     species = list(centrality_measures_dict.keys())
     centrality_measure_values = list(centrality_measures_dict.values())
@@ -136,17 +107,6 @@ def bar_chart_common_names(centrality_measures_dict, common_names, cm_name, king
 # Generates a bar chart of species centrality measures, coloring bars
 # based on their origin (Introduced, Native, Endemic, Unknown) read from a CSV file
 def bar_chart_species_origin(centrality_measures_dict, file_path, cm_name, kingdom_type, graph_type):
-    """
-    Plots a bar chart of centrality measures, coloring bars and labels based on species origin.
-
-    Args:
-        centrality_measures_dict (dict): A dictionary where keys are species names
-                                         and values are their corresponding centrality measures.
-        name (str): The name of the centrality measure (e.g., "Betweenness Centrality").
-        file_path (str): The path to the CSV file containing species origin data.
-        kingdom_type (str): The type of kingdom ("plants" or "pollinators") to determine
-                            which columns to read from the CSV.
-    """
     plt.figure(figsize=(35, 15), dpi=100)
 
     # Extract species names (keys) and centrality values (values) from the input dictionary
@@ -234,7 +194,7 @@ def histo_side_by_side(data_controlled, data_restored, data_name, kingdom_name):
     bins_data = np.arange(min_val - 0.5, max_val + 1.5, 1)
 
     # create and draw figure
-    plt.figure(figsize=(8, 5))
+    plt.figure()
     plt.hist(
         [data_controlled, data_restored],
         bins=bins_data,
@@ -326,21 +286,8 @@ def degree(graph):
 
     return plant_degrees, pollinator_degrees
 
-# get the weighted degree from the graph
+# get the weighted degree from the graph as a dict
 def weighted_degree(graph):
-    """
-    Calculates the weighted degree for plants and pollinators in a bipartite graph.
-    Assumes the graph nodes have a 'bipartite' attribute (0 for plants, 1 for pollinators).
-    The 'weight' attribute of edges is used for weighted degree calculation.
-
-    Args:
-        graph (networkx.Graph): The bipartite graph.
-
-    Returns:
-        tuple: A tuple containing two dictionaries:
-               - plant_w_degrees_dict: {plant_name: weighted_degree_value}
-               - pollinator_w_degrees_dict: {pollinator_name: weighted_degree_value}
-    """
     # Separate nodes into plants and pollinators based on the 'bipartite' attribute
     # Assuming 'bipartite' == 0 for plants and 'bipartite' == 1 for pollinators
     plants = {n for n, d in graph.nodes(data=True) if d.get('bipartite') == 0}
@@ -587,7 +534,7 @@ def draw_network_order(
         "Hymenoptera": "orange",
         "Coleoptera": "green",
         "Lepidoptera": "purple",
-        "Hemiptera": "gray",
+        "Hemiptera": "darkgray",
         "Passeriformes": "brown",
         "Squamata": "pink",
     }
@@ -631,6 +578,122 @@ def draw_network_order(
                bbox_to_anchor=(0.05, 0.15), fontsize=30)
     plt.axis('off')
 
+
+def draw_network_origin(
+    file_adj_matrix,
+    plant_file,
+    pollinator_file,
+    min_spacing=0.02,
+    min_size=100,
+    scale_factor=100
+):
+    G, pos, node_sizes, normalized_weights, plant_read, pollinator_read = nodes_and_edges(
+        file_adj_matrix, plant_file, pollinator_file, min_spacing, min_size, scale_factor)
+
+    # --- Prepare Plant Origin Data ---
+    # Read plant origin data using pandas. Assumes 3rd column (idx 2) is species, 5th column (idx 4) is origin.
+    plant_origin_df = pd.read_csv(plant_file, header=None)
+    plant_species_from_file = plant_origin_df.iloc[:, 2].tolist()
+    plant_origins = plant_origin_df.iloc[:, 4].tolist()
+    plant_species_to_origin = dict(zip(plant_species_from_file, plant_origins))
+
+    # Define color map for plant origins
+    plant_color_map = {
+        'I': 'red',     # Introduced
+        'N': 'blue',    # Native
+        'E': 'green'    # Endemic
+    }
+    plant_default_color = 'gray' # For plants not found in origin file or invalid origin
+
+    # Define legend labels for plant origins
+    plant_legend_labels = {
+        'I': 'Introduced Plants',
+        'N': 'Native Plants',
+        'E': 'Endemic Plants'
+    }
+
+    # --- Prepare Pollinator Order Data ---
+    # `pollinator_read` is already available from `nodes_and_edges`
+    species_to_order = {
+        species.strip(): order.strip()
+        for species, order in zip(pollinator_read.iloc[:, 3], pollinator_read.iloc[:, 1])
+    }
+
+    order_color_map = {
+        "Diptera": "skyblue",
+        "Hymenoptera": "orange",
+        "Coleoptera": "darkgreen",
+        "Lepidoptera": "purple",
+        "Hemiptera": "darkgray",
+        "Passeriformes": "brown",
+        "Squamata": "pink",
+    }
+    pollinator_default_color = "black"
+
+    # -- Assign Node Colors --
+    node_colors = []
+    for node in G.nodes:
+        # --- HARDCODED EXPLICIT ASSIGNMENT FOR SPECIFIC NAMES ---
+        # Add your problematic names here EXACTLY as they appear in G.nodes
+        if node == "Xylopia lamarckii":
+            color = 'green' # Example hardcoded color
+        elif node == "Dodonaea viscosa":
+            color = 'blue'    # Example hardcoded color
+        elif node == "Roussea simplex":
+            color == 'green'
+        elif node == "Pleustylia leucocarpa":
+            color == 'green'
+        # Add more 'elif node == "YourExactPlantName":' lines here as needed
+        # --- END HARDCODED ASSIGNMENT ---
+
+        # If not explicitly assigned, use the origin/order logic
+        elif G.nodes[node]['bipartite'] == 0:  # If it's a plant (and not hardcoded)
+            origin = plant_species_to_origin.get(node, None)
+            color = plant_color_map.get(origin, plant_default_color)
+        else:  # If it's a pollinator
+            order = species_to_order.get(node)
+            color = order_color_map.get(order, pollinator_default_color)
+        node_colors.append(color)
+
+    plt.figure(figsize=(20, 60))
+
+    # --- Draw Network ---
+    nx.draw(
+        G, pos,
+        with_labels=False, # We draw labels manually for precise positioning
+        node_size=[node_sizes[n] for n in G.nodes],
+        node_color=node_colors,
+        edge_color="black",
+        width=normalized_weights
+    )
+
+    # --- Draw Labels ---
+    label_offset = 0.02
+    for node, (x, y) in pos.items():
+        # Adjust label alignment based on bipartite group
+        ha = 'right' if G.nodes[node]['bipartite'] == 0 else 'left'
+        offset = -label_offset if ha == 'right' else label_offset
+        plt.text(x + offset, y, node, ha=ha, va='center', fontsize=30)
+
+    # --- Create Legend Handles ---
+    legend_patches = []
+
+    # 1. Add legend entries for Pollinator Orders
+    for order_name, color in order_color_map.items():
+        legend_patches.append(mpatches.Patch(color=color, label=f'Pollinator: {order_name}'))
+    # Add a default for pollinators if there's a possibility of unmapped orders
+
+
+    # 2. Add legend entries for Plant Origins
+    for origin_code, color in plant_color_map.items():
+        if origin_code in plant_legend_labels:
+            legend_patches.append(mpatches.Patch(color=color, label=plant_legend_labels[origin_code]))
+    # Add a default for plants if there's a possibility of unmapped origins
+
+    plt.legend(handles=legend_patches, loc='upper left',
+               bbox_to_anchor=(0.05, 0.15), fontsize=30, title="Node Categories")
+    plt.axis('off')
+    plt.show()
 
 def draw_network_communities(
     file_adj_matrix,

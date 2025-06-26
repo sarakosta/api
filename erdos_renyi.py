@@ -22,6 +22,10 @@ f.gaussian_fit_histo(pollinator_degrees_c, data_name = 'Controlled', kingdom_nam
 f.gaussian_fit_histo(plant_degrees_r, data_name = 'Restored', kingdom_name = 'Plants', histo_color = '#ff7f0e')
 f.gaussian_fit_histo(pollinator_degrees_r, data_name = 'Restored', kingdom_name = 'Pollinators', histo_color = '#ff7f0e')
 
+# draw the histogram for the degree side by side
+f.histo_side_by_side(plant_degrees_c, plant_degrees_r, data_name="Linkage", kingdom_name="Plants")
+f.histo_side_by_side(pollinator_degrees_c, pollinator_degrees_r, data_name="Linkage", kingdom_name="Pollinators")
+
 # -- Computation of centrality measures for N_ER Erdos-Renyi graphs --
 # restored graph as model
 mean_bc_plants_c, mean_bc_pollinators_c, mean_cc_plants_c, mean_cc_pollinators_c, mean_wd_plants_c, mean_wd_pollinators_c = f.centrality_measures_ER(N_ER, "data/gcontrolled.csv")
@@ -83,9 +87,3 @@ f.bar_chart_species_origin(wd_pollinators_r, file_path = "data/restored_pollinat
 f.test_ks_mw(list(wd_plants_c.values()), mean_wd_plants_c, list(bc_plants_c.values()), mean_bc_plants_c, list(cc_plants_c.values()), mean_cc_plants_c, graph_type = "Control")
 f.test_ks_mw(list(wd_plants_r.values()), mean_wd_plants_r, list(bc_plants_r.values()), mean_bc_plants_r, list(cc_plants_r.values()), mean_cc_plants_r, graph_type = "Restored")
 
-# -- Degree side by side --
-plant_degrees_c, pollinator_degrees_c = f.degree(G_c)
-plant_degrees_r, pollinator_degrees_r = f.degree(G_r)
-# draw the histogram for the degree side by side
-f.histo_side_by_side(plant_degrees_c, plant_degrees_r, data_name="Linkage", kingdom_name="Plants")
-f.histo_side_by_side(pollinator_degrees_c, pollinator_degrees_r, data_name="Linkage", kingdom_name="Pollinators")
