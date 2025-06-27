@@ -721,6 +721,7 @@ def draw_network_communities(
     num_communities,
     communities_grouped,
     network_type,
+    comm_detection_method,
     min_spacing=0.02,
     min_size=100,
     scale_factor=100
@@ -764,9 +765,7 @@ def draw_network_communities(
     plt.axis('off')
     plt.tight_layout(rect=[0, 0, 0.85, 1])
 
-    # plt.show()
-
-    # --- DRAWING INDIVIDUAL GRAPHS AND CREATING ADJACENCY MATRICES FOR EACH COMMUNITY ---
+    # --- CREATING ADJACENCY MATRICES FOR EACH COMMUNITY ---
     print("\n--- Processing Individual Community Graphs and Adjacency Matrices ---")
     for comm_id, nodes_in_comm in communities_grouped.items():
         # Filter nodes into plants and pollinators within this community
@@ -814,9 +813,354 @@ def draw_network_communities(
                 community_adj_df.loc[v, u] = weight
 
         # Save the community's adjacency matrix to a CSV file
-        csv_filename = f"{network_type}_community_{comm_id}_adjacency_matrix.csv"
+        csv_filename = f"{network_type}_{comm_detection_method}_community_{comm_id}_adjacency_matrix.csv"
         community_adj_df.to_csv(csv_filename, encoding='utf-8')
 
+def draw_network_communities_projected(
+    G,
+    partition,
+    num_communities,
+    communities_grouped,
+    network_type,
+    projection_type,
+    comm_detection_method,
+):
+    plt.figure(figsize=(25, 25))
+    ax = plt.gca() # Get current axes for fine-tuning
+
+    community_colors = cm.get_cmap('tab20', num_communities)
+    node_community_colors = [community_colors(partition[node]) for node in G.nodes()]
+
+    # --- Layout Calculation (Crucial for readability) ---
+    # Experiment with 'k' to control node repulsion.
+    # A larger 'k' pushes nodes further apart.
+    # A value of 0.5 to 1.5 often works well, depending on graph size and density.
+    # Also, increase 'iterations' for a more stable and spread-out layout.
+    pos = nx.spring_layout(G, k=0.8, iterations=100, seed=42) # Increased k and iterations
+
+    nx.draw(
+        G, pos,
+        with_labels=False, # We'll draw labels separately for more control
+        node_size=150,     # Reduced default node size
+        node_color=node_community_colors,
+        edge_color="gray", # Changed edge color for better contrast against background
+        width=0.5,         # Reduced default edge width
+        alpha=0.7          # Added some transparency to edges
+    )
+
+    # --- Custom Label Placement ---
+    label_offset = 0.005 # Reduce offset as nodes are now more spread out
+    font_size = 8      # Smaller font size for labels to reduce overlap
+
+    texts = []
+    for node, (x, y) in pos.items():
+        txt = ax.text(x + label_offset, y, node,
+                       ha='left', va='center', fontsize=font_size, clip_on=True,
+                       bbox=dict(facecolor='white', alpha=0.5, edgecolor='none', boxstyle='round,pad=0.2')) # Add a background to labels
+        texts.append(txt)
+
+    # To prevent text from being cut off at the edges and control the viewable area
+    # This acts as a 'cutoff' for the display, preventing excessive empty space around far-apart nodes.
+    if pos: # Ensure pos is not empty before calculating min/max
+        min_x = min(p[0] for p in pos.values())
+        max_x = max(p[0] for p in pos.values())
+        min_y = min(p[1] for p in pos.values())
+        max_y = max(p[1] for p in pos.values())
+
+        # Add a small buffer to the limits
+        x_buffer = (max_x - min_x) * 0.05
+        y_buffer = (max_y - min_y) * 0.05
+
+        ax.set_xlim(min_x - x_buffer, max_x + x_buffer)
+        ax.set_ylim(min_y - y_buffer, max_y + y_buffer)
+
+
+    community_patches = []
+    for i in range(num_communities):
+        community_patches.append(mpatches.Patch(
+            color=community_colors(i), label=f'Community {i}'))
+
+    legend_handles = community_patches
+    plt.legend(handles=legend_handles, loc='upper left',
+               bbox_to_anchor=(1.02, 1), borderaxespad=0., fontsize=12)
+
+    plt.axis('off')
+    plt.tight_layout(rect=[0, 0, 0.85, 1]) # Adjust rect for external legend
+
+    # --- CREATING ADJACENCY MATRICES FOR EACH COMMUNITY ---
+    print("\n--- Processing Individual Community Graphs and Adjacency Matrices ---")
+    for comm_id, nodes_in_comm in communities_grouped.items():
+        subgraph = G.subgraph(nodes_in_comm)
+
+        if not nodes_in_comm:
+            print(f"Community {comm_id} is empty. Skipping plot and CSV.")
+            continue
+        if subgraph.number_of_edges() == 0:
+            print(
+                f"Community {comm_id} has nodes but no internal edges. Skipping plot and CSV.")
+            continue
+
+        sorted_nodes_in_comm = sorted(nodes_in_comm)
+        community_adj_df = pd.DataFrame(
+            0,
+            index=sorted_nodes_in_comm,
+            columns=sorted_nodes_in_comm
+        )
+
+        for u, v, data in subgraph.edges(data=True):
+            weight = data.get('weight', 0)
+            community_adj_df.loc[u, v] = weight
+            if not G.is_directed():
+                community_adj_df.loc[v, u] = weight
+
+        csv_filename = f"{network_type}_{comm_detection_method}_{projection_type}_community_{comm_id}_adjacency_matrix.csv"
+        community_adj_df.to_csv(csv_filename, encoding='utf-8')
+
+    plt.show()
+    
+import math
+
+# --- Shared Color Maps (Defined globally or passed into functions if preferred) ---
+plant_color_map = {
+    'I': 'red',     # Introduced
+    'N': 'blue',    # Native
+    'E': 'green'    # Endemic
+}
+plant_default_color = 'gray' # For plants not found in origin file or invalid origin
+
+plant_legend_labels = {
+    'I': 'Introduced Plants',
+    'N': 'Native Plants',
+    'E': 'Endemic Plants'
+}
+
+order_color_map = {
+    "Diptera": "skyblue",
+    "Hymenoptera": "orange",
+    "Coleoptera": "darkgreen",
+    "Lepidoptera": "purple",
+    "Hemiptera": "darkgray",
+    "Passeriformes": "brown",
+    "Squamata": "pink",
+}
+pollinator_default_color = "black"
+
+
+def draw_plants_origin(
+    file_adj_matrix,          # Path to the unipartite adjacency matrix CSV file (plants)
+    plant_file,               # Path to the plant metadata file (for origin)            # E.g., "Plant-Plant Projected"
+):
+    """
+    Loads a unipartite plant network from an adjacency matrix and plant metadata,
+    then draws it, coloring nodes by their origin.
+
+    Args:
+        file_adj_matrix (str): Path to the CSV file containing the unipartite adjacency matrix
+                               for plants. The first column/row should be node names.
+        plant_file (str): Path to the CSV file containing plant metadata. Assumes 3rd column
+                          (index 2) is species name and 5th column (index 4) is origin code.
+        network_name (str): A descriptive name for the network (e.g., "Plant-Plant Projected").
+    """
+    # --- Load Unipartite Graph from Adjacency Matrix ---
+    adj_df = pd.read_csv(file_adj_matrix, index_col=0)
+    G = nx.from_pandas_adjacency(adj_df)
+    # Convert any potential non-string node names to string for consistency
+    G = nx.relabel_nodes(G, {n: str(n) for n in G.nodes()})
+
+    # --- Prepare Plant Origin Data ---
+    plant_origin_df = pd.read_csv(plant_file, header=None)
+    # Assuming 3rd column (idx 2) is species, 5th column (idx 4) is origin.
+    plant_species_from_file = [str(s).strip() for s in plant_origin_df.iloc[:, 2].tolist()]
+    plant_origins = [str(o).strip() for o in plant_origin_df.iloc[:, 4].tolist()]
+    plant_species_to_origin = dict(zip(plant_species_from_file, plant_origins))
+
+    # Assign node colors based on origin for the loaded unipartite graph
+    node_colors = []
+    for node in G.nodes:
+        origin = plant_species_to_origin.get(node, None)
+        color = plant_color_map.get(origin, plant_default_color)
+        node_colors.append(color)
+
+    # Determine connected components for a better layout if graph is disconnected
+    components = list(nx.connected_components(G))
+    num_components = len(components)
+
+    # --- Removed: if num_components == 0: check, assuming caller handles empty graphs ---
+
+    num_cols = math.ceil(math.sqrt(num_components))
+    num_rows = math.ceil(num_components / num_cols)
+
+    fig, axes = plt.subplots(num_rows, num_cols, figsize=(num_cols * 10, num_rows * 10))
+
+    if num_rows == 1 and num_cols == 1:
+        axes = [axes]
+    else:
+        axes = axes.flatten()
+
+    for i, component_nodes in enumerate(components):
+        if i >= len(axes): # Safety check for more components than subplots (shouldn't occur with correct math)
+            break
+
+        ax = axes[i]
+        comp_subgraph = G.subgraph(component_nodes)
+
+        # --- Removed: if comp_subgraph.number_of_nodes() == 0: check ---
+
+        if comp_subgraph.number_of_nodes() > 1: # Keep: essential for spring_layout functionality
+            pos = nx.spring_layout(comp_subgraph, k=0.8, iterations=100, seed=42)
+        else: # Handle single isolated nodes, as spring_layout isn't ideal for them
+            node = list(comp_subgraph.nodes())[0]
+            pos = {node: (0.5, 0.5)}
+
+        comp_node_colors = [plant_color_map.get(plant_species_to_origin.get(node, None), plant_default_color)
+                            for node in comp_subgraph.nodes()]
+
+        nx.draw(
+            comp_subgraph, pos,
+            ax=ax,
+            with_labels=False,
+            node_size=150,
+            node_color=comp_node_colors,
+            edge_color="gray",
+            width=0.5,
+            alpha=0.7
+        )
+
+        label_offset = 0.005
+        font_size = 8
+        for node, (x, y) in pos.items():
+            ax.text(x + label_offset, y, node,
+                    ha='left', va='center', fontsize=font_size, clip_on=True,
+                    bbox=dict(facecolor='white', alpha=0.5, edgecolor='none', boxstyle='round,pad=0.2'))
+
+        ax.set_title(f"Plants Component {i+1}\n(Nodes: {comp_subgraph.number_of_nodes()}, Edges: {comp_subgraph.number_of_edges()})", fontsize=10)
+        ax.axis('off')
+
+    # Hide any unused subplots
+    for i in range(num_components, len(axes)):
+        fig.delaxes(axes[i])
+
+    # Create and add legend for plant origins
+    legend_patches = []
+    for origin_code, color in plant_color_map.items():
+        if origin_code in plant_legend_labels:
+            legend_patches.append(mpatches.Patch(color=color, label=plant_legend_labels[origin_code]))
+    if plant_default_color not in plant_color_map.values(): # Avoid duplicate if gray is also a named origin color
+        legend_patches.append(mpatches.Patch(color=plant_default_color, label='Plants: Other/Unknown Origin'))
+
+    fig.legend(handles=legend_patches, loc='upper right', bbox_to_anchor=(1, 1), fontsize=14,
+               title="Plant Origins", title_fontsize=16)
+
+    plt.tight_layout(rect=[0, 0, 0.95, 1])
+
+
+def draw_pollinators_order(
+    file_adj_matrix,
+    pollinator_file,
+):
+    """
+    Loads a unipartite pollinator network from an adjacency matrix and pollinator metadata,
+    then draws it, coloring nodes by their order.
+
+    Args:
+        file_adj_matrix (str): Path to the CSV file containing the unipartite adjacency matrix
+                               for pollinators. The first column/row should be node names.
+        pollinator_file (str): Path to the CSV file containing pollinator metadata. Assumes 4th column
+                               (index 3) is species name and 2nd column (index 1) is order name.
+        network_name (str): A descriptive name for the network (e.g., "Pollinator-Pollinator Projected").
+    """
+    # --- Load Unipartite Graph from Adjacency Matrix ---
+    adj_df = pd.read_csv(file_adj_matrix, index_col=0)
+    G = nx.from_pandas_adjacency(adj_df)
+    # Convert any potential non-string node names to string for consistency
+    G = nx.relabel_nodes(G, {n: str(n) for n in G.nodes()})
+
+    # --- Prepare Pollinator Order Data ---
+    pollinator_read_df = pd.read_csv(pollinator_file, header=None)
+    # Assuming 4th column (idx 3) is species name, 2nd column (idx 1) is order name.
+    species_to_order = {
+        str(species).strip(): str(order).strip()
+        for species, order in zip(pollinator_read_df.iloc[:, 3], pollinator_read_df.iloc[:, 1])
+    }
+
+    # Assign node colors based on order for the loaded unipartite graph
+    node_colors = []
+    for node in G.nodes:
+        order = species_to_order.get(node, None)
+        color = order_color_map.get(order, pollinator_default_color)
+        node_colors.append(color)
+
+    # Determine connected components for a better layout if graph is disconnected
+    components = list(nx.connected_components(G))
+    num_components = len(components)
+
+    # --- Removed: if num_components == 0: check, assuming caller handles empty graphs ---
+
+    num_cols = math.ceil(math.sqrt(num_components))
+    num_rows = math.ceil(num_components / num_cols)
+
+    fig, axes = plt.subplots(num_rows, num_cols, figsize=(num_cols * 10, num_rows * 10))
+
+    if num_rows == 1 and num_cols == 1:
+        axes = [axes]
+    else:
+        axes = axes.flatten()
+
+    for i, component_nodes in enumerate(components):
+        if i >= len(axes):
+            break
+
+        ax = axes[i]
+        comp_subgraph = G.subgraph(component_nodes)
+
+        # --- Removed: if comp_subgraph.number_of_nodes() == 0: check ---
+
+        if comp_subgraph.number_of_nodes() > 1: # Keep: essential for spring_layout functionality
+            pos = nx.spring_layout(comp_subgraph, k=0.8, iterations=100, seed=42)
+        else: # Handle single isolated nodes, as spring_layout isn't ideal for them
+            node = list(comp_subgraph.nodes())[0]
+            pos = {node: (0.5, 0.5)}
+
+        comp_node_colors = [order_color_map.get(species_to_order.get(node, None), pollinator_default_color)
+                            for node in comp_subgraph.nodes()]
+
+        nx.draw(
+            comp_subgraph, pos,
+            ax=ax,
+            with_labels=False,
+            node_size=150,
+            node_color=comp_node_colors,
+            edge_color="gray",
+            width=0.5,
+            alpha=0.7
+        )
+
+        label_offset = 0.005
+        font_size = 8
+        for node, (x, y) in pos.items():
+            ax.text(x + label_offset, y, node,
+                    ha='left', va='center', fontsize=font_size, clip_on=True,
+                    bbox=dict(facecolor='white', alpha=0.5, edgecolor='none', boxstyle='round,pad=0.2'))
+
+        ax.set_title(f"Pollinators Component {i+1}\n(Nodes: {comp_subgraph.number_of_nodes()}, Edges: {comp_subgraph.number_of_edges()})", fontsize=10)
+        ax.axis('off')
+
+    # Hide any unused subplots
+    for i in range(num_components, len(axes)):
+        fig.delaxes(axes[i])
+
+    # Create and add legend for pollinator orders
+    legend_patches = []
+    for order_name, color in order_color_map.items():
+        legend_patches.append(mpatches.Patch(color=color, label=f'Pollinator: {order_name}'))
+    if pollinator_default_color not in order_color_map.values():
+        legend_patches.append(mpatches.Patch(color=pollinator_default_color, label='Pollinator: Other/Unknown Order'))
+
+
+    fig.legend(handles=legend_patches, loc='upper right', bbox_to_anchor=(1, 1), fontsize=14,
+               title="Pollinator Orders", title_fontsize=16)
+
+    plt.tight_layout(rect=[0, 0, 0.95, 1])
 
 # -- FUNCTIONS TO COMPUTE EVENNESS --
 
@@ -889,7 +1233,7 @@ def print_Louvain_communities(G, N_louvain, network_type,
             num_communities = num_communities_new
             modularity = modularity_new
 
-    # --- Print Community Details to console AND file ---
+    # --- Print Community Details to file ---
     communities_grouped = {i: [] for i in range(num_communities)}
     for node, comm_id in partition.items():
         communities_grouped[comm_id].append(node)
@@ -920,6 +1264,7 @@ def print_Louvain_communities(G, N_louvain, network_type,
     return partition, num_communities, modularity, communities_grouped
 
 
+"""
 def print_biSBM_communities(G, N_biSBM, network_type,
                             output_txt_file_suffix="_biSBM_community_details.txt"):
 
@@ -986,8 +1331,9 @@ def print_biSBM_communities(G, N_biSBM, network_type,
     modularity = co.modularity(partition, G, weight='weight')
 
     return partition, num_communities, optimal_bisbm_dl, communities_grouped, modularity, bisbm_state
+"""
 
-def projections_old(G):
+def projections(G):
     # Perform the unipartite projection
     plant_nodes = {n for n, d in G.nodes(data=True) if d['bipartite'] == 0}
     pollinator_nodes = {n for n, d in G.nodes(
@@ -1001,40 +1347,47 @@ def projections_old(G):
     
     return G_plants, G_pollinators
 
-def projections(G):
-    adj_matrix = nx.adjacency_matrix(G)
-    adj_matrix = adj_matrix.toarray()
-    
-    plants_proj_adj_matrix = adj_matrix.T @ adj_matrix
-    num_nodes_plants = plants_proj_adj_matrix.shape[0]
-    G_plants = nx.Graph()
-    G_plants.add_nodes_from(range(num_nodes_plants))
-    # Add edges based on the adjacency matrix
-    for i in range(num_nodes_plants):
-        for j in range(num_nodes_plants):
-            weight = plants_proj_adj_matrix[i, j]
-            if weight != 0:
-                G_plants.add_edge(i, j, weight=weight)
-    
-    pollinators_proj_adj_matrix = adj_matrix @ adj_matrix.T
-    num_nodes_pollinators = pollinators_proj_adj_matrix.shape[0]
-    G_pollinators = nx.Graph()
-    G_pollinators.add_nodes_from(range(num_nodes_pollinators))
-    # Add edges based on the adjacency matrix
-    for i in range(num_nodes_pollinators):
-        for j in range(num_nodes_pollinators):
-            weight = pollinators_proj_adj_matrix[i, j]
-            if weight != 0:
-                G_pollinators.add_edge(i, j, weight=weight)
-    
-    return G_plants, G_pollinators
-    
+def print_projected_Louvain_communities(G, N_louvain, network_type, projection_type,
+                                         output_txt_file_suffix="_projected_Louvain_community_details.txt"):
+    partition, num_communities, modularity = Louvain_method(G)
+    for n in range(N_louvain):
+        partition_new, num_communities_new, modularity_new = Louvain_method(G)
+        if modularity < modularity_new:
+            partition = partition_new
+            num_communities = num_communities_new
+            modularity = modularity_new
 
+    # --- Print Community Details to file ---
+    communities_grouped = {i: [] for i in range(num_communities)}
+    for node, comm_id in partition.items():
+        communities_grouped[comm_id].append(node)
+
+    # Construct full filename
+    full_output_txt_filename = f"{network_type}_{projection_type}{output_txt_file_suffix}"
+    with open(full_output_txt_filename, 'w', encoding='utf-8') as f:
+        # Added network_type for clarity in output text
+        f.write(
+            f"\nNetwork loaded with {G.number_of_nodes()} nodes and {G.number_of_edges()} edges. ({network_type} {projection_type} network)" + '\n')
+        f.write("\n--- Performing Community Detection ---" + '\n')
+        f.write(f"Detected {num_communities} communities." + '\n')
+        f.write(f"Modularity of the partition: {modularity:.4f}" + '\n')
+        f.write("\n--- Community Details ---" + '\n')
+
+        for comm_id, nodes_in_comm in communities_grouped.items():
+            # In a unipartite graph, all nodes are treated uniformly within a community
+            f.write(f"{projection_type} Community {comm_id}:" + '\n')
+            f.write(
+                f"  Nodes ({len(nodes_in_comm)}): {', '.join(nodes_in_comm) if nodes_in_comm else 'None'}" + '\n')
+            f.write("-" * 30 + '\n')
+
+    return partition, num_communities, modularity, communities_grouped
+
+"""
 def print_SBM_communities(G, N_SBM, network_type,
                           output_txt_file_plant_suffix="_plant_projection_SBM_community_details.txt",
                           output_txt_file_pollinator_suffix="_pollinator_projection_SBM_community_details.txt"):
 
-    G_plants, G_pollinators = projections_old(G)
+    G_plants, G_pollinators = projections(G)
 
     # convert to graph_tool graph
     G_gt_plants = graph_gt(G_plants)
@@ -1145,3 +1498,4 @@ def print_SBM_communities(G, N_SBM, network_type,
         partition_pollinators, G_pollinators, weight='weight')
 
     return partition_plants, num_communities_plants, optimal_sbm_dl_plants, communities_grouped_plants, modularity_plants, state_plants_unipartite, partition_pollinators, num_communities_plants, optimal_sbm_dl_pollinators, communities_grouped_pollinators, modularity_pollinators, state_pollinators_unipartite
+"""

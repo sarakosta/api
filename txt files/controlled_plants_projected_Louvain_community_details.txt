@@ -1,0 +1,35 @@
+
+Network loaded with 63 nodes and 1137 edges. (controlled plants network)
+
+--- Performing Community Detection ---
+Detected 9 communities.
+Modularity of the partition: 0.0513
+
+--- Community Details ---
+plants Community 0:
+  Nodes (1): Pittosporum senacia
+------------------------------
+plants Community 1:
+  Nodes (16): Smilax anceps, Syzygium glomeratum, Embelia angustifolia, Claoxylon linostachys ssp brachyphyllum, Aphloia theiformis, Dracaena reflexa var angustifolia, Molinaea alternifolia, Psiadia terebinthina, Erythroxylum macrocarpum, Stillingia lineata ssp lineata, Dodonaea viscosa , Sideroxylon cinereum, Doratoxylon apetalum var diphyllum, Homalanthus populifolius, Toddalia asiatica, Croton fothergillifolius
+------------------------------
+plants Community 2:
+  Nodes (1): Ossaea marginata
+------------------------------
+plants Community 3:
+  Nodes (1): Erythrospermum monticolum var monticolum
+------------------------------
+plants Community 4:
+  Nodes (23): Antirhea borbonica, Croton grangeroides, Casearia coriacea, Chassalia coriacea var coriacea, Syzygium petrinense, Faujasiopsis flexuosa ssp erecta, Coffea mauritiana, Warneckea trinervis, Psidium cattleianum, Sideroxylon puberulum, Labourdonnaisia callophylloides, Trochetia blackburniana, Gaertnera rotundifolia, Grangeria borbonica, Helichrysum proteoides, Ochna mauritiana, Olea lancea, Rubus alcefolius, Calophyllum eputamen var eputamen, Bertiera zaluzania, Myonima violacea var ovata, Gaertnera psychotrioides/edentata, Diospyros revaughanii
+------------------------------
+plants Community 5:
+  Nodes (18): Coffea macrocarpa, Phyllanthus phillyreifolius var telfairianus, Molinaea macrantha, Wikstroemia indica, Syzygium commersonii, Cordemoya integrifolia, Turraea rigida, Antidesma madagascariense, Badula platiphylla, Syzygium coriaceum, Tristhema mauritiana, Badula insularis, Euodia obtusifolia ssp gigas var gigas, Harungana madagascariensis, Psathura terniflora, Tabernaemontana persicarifolia, Flagellaria indica, Eugenia orbiculata
+------------------------------
+plants Community 6:
+  Nodes (1): Clidemia hirta
+------------------------------
+plants Community 7:
+  Nodes (1): Ardisia crenate
+------------------------------
+plants Community 8:
+  Nodes (1): Xylopia lamarckii 
+------------------------------

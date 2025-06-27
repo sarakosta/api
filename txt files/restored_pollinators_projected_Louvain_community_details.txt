@@ -1,0 +1,20 @@
+
+Network loaded with 135 nodes and 2928 edges. (restored pollinators network)
+
+--- Performing Community Detection ---
+Detected 4 communities.
+Modularity of the partition: 0.0971
+
+--- Community Details ---
+pollinators Community 0:
+  Nodes (25): Simulium sp, Thelairodrino sp, Hyadina sp, Zaprionus tuberculatus, Hyperaspis hottentota, Ophyra capensis, Graphomya maculata, Lauxania sp, Peribaea sp, Simulium (Byssodon) sp 2, Melanagromyza sojae, Calcidoidae sp 1, Pteromalidae sp, Siphona sp, Scatopsidae sp, Syritta sp near abyssinica, Dolichopodidae sp, Tarundia servillei, Sapromyza sp near nudiuscula, Homoneura sp 2, Trirhithrum sp near nigerrimum, Pheidole megacephala, Acalyptrate sp, Diptera sp 1, Sepsis lateralis
+------------------------------
+pollinators Community 1:
+  Nodes (48): Papillio manlius, Lecithoceridae sp 1, Goniurellia or Dectodes sp, Drosophila sp 2, Macroglossum milvus, Phelsuma cepediana, Nacoleia sp 1, Bactrocera cucurbitae, Allograpta sp 1, Eumolpinae sp 1, Panara naso, Scopariinae sp, Technomyrmex albipes, Paragus borbonicus, Ornidia obesa, Cerambycidae sp 1, Tettigoniidae sp 1, Stomorhina lunata, Mordellidae sp 2, Pachycerina crinicornis, Psyllidae sp 2, Psyllidae sp 1, Strictopterinae sp, Phorinia sp, Paleorhiza sp 1, Nacoleia sp 2, Ahasverus advena, Brachymyrmex sp, Episyrphus sp near circularis, Zizeeria knysa, Mordellidae sp 1, Gelechioidea sp 1, Eilema squalida, Lygaeidae sp 1, Dasytinae sp, Apis mellifera, Villa unifasciata, Chaetocnema sp, Sarrothripinae sp, Anthomyia faciata, Conocephalus sp 1, Campopleginae sp, Chrysomya megacephala, Drosophila sp 3, Limonia (Dycranomia) sp, Hydrillodes sp, Eristalinus flaveolus, Mythimna sp
+------------------------------
+pollinators Community 2:
+  Nodes (35): Chironomidae sp, Mauritiborium undulatus, Stomoxys niger, Homoneura quadrivittata, Atherigona sp, Cerambycidae sp 3, Melanostoma annulipes, Allograpta nasuta, Drosophila sp 1, Cheloninae sp 1, Pelecophora intemipta, Fannia pusio, Cryptinae sp, Scirtidae sp 2, Cheloninae sp 2, Musca domestica, Allograpta sp 2, Scirtidae sp 1, Syritta nigrofemorata, Stomoxys calcitrans, Sarcophaga arno, Condica capensis, Henotesia narcissus, Zaprionus vittiger, Zosterops mauritianus, Scolia carniflex, Orchisia costata, Scolia oryctophaga, Ischiodon aegyptius, Homoneura sp 1, Limnophora quaterna, Remigia frugalis, Miridae sp, Nyctemera insulare, Leptotes pirithous
+------------------------------
+pollinators Community 3:
+  Nodes (27): Lygaeidae sp 5, Cicadellidae sp, Trichoplusia indicator , Polistes hebraeus, Lecithoceridae sp 2, Spilogona sp , Lygistorrhina sp, Spodoptera littoralis, Cephonodes trochilus, Phalanta phalantha , Orthellia albigena, Achaea finite, Lygaeidae sp 4, Limoniidae sp, Hippotion eson, Aganais borbonica, Pycnonotus jocosus, Acopsis viridicans, Ceratitis roas, Melanostoma bituberculatum, Agrostis atritegulator, Psilopa iceryae, Foudia madagascariense, Nogodinidae sp, Pterophoridae sp, Dysauxes florida, Dioxyna sororcula
+------------------------------

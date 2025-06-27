@@ -1,0 +1,29 @@
+,Cerambycidae sp 1,Ceratitis roas,Cheloninae sp 3,Cixiidae sp 1,Cixiidae sp 2,Cotesia sp 1,Dioxyna sororcula,Diptera sp 2,Diptera sp 3,Episyrphus sp near circularis,Goniurellia or Dectodes sp,Graphomya maculata,Homoneura sp 1,Hydrotaea fuliginosa,Lecithoceridae sp 1,Leptotes pirithous ,Lygaeidae sp 5,Lygistorrhina sp,Mauritiborium undulatus,Melanostoma annulipes,Miridae sp,Mordellidae sp 1,Orchisia costata,Palexorista sp,Scolia carniflex,Stomoxys calcitrans,Stomoxys niger,Syritta bulbus
+Cerambycidae sp 1,0,1,0,0,0,0,1,0,0,2,1,0,0,0,1,2,1,2,2,1,1,1,1,0,1,1,1,1
+Ceratitis roas,1,0,0,0,0,0,1,0,0,1,1,0,0,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1
+Cheloninae sp 3,0,0,0,0,1,0,1,0,1,1,0,1,1,0,0,0,0,1,1,1,0,0,1,0,0,1,1,0
+Cixiidae sp 1,0,0,0,0,0,1,1,0,0,1,0,0,0,1,0,0,0,0,1,1,0,0,0,1,0,0,1,0
+Cixiidae sp 2,0,0,1,0,0,0,1,0,1,1,0,1,1,0,0,0,0,1,1,1,0,0,1,0,0,1,1,0
+Cotesia sp 1,0,0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,1,1,0,0,0,1,0,0,1,0
+Dioxyna sororcula,1,1,1,1,1,1,0,1,1,3,1,1,1,1,1,1,1,4,4,5,1,1,2,1,1,3,3,1
+Diptera sp 2,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+Diptera sp 3,0,0,1,0,1,0,1,0,0,1,0,1,1,0,0,0,0,1,1,1,0,0,1,0,0,1,1,0
+Episyrphus sp near circularis,2,1,1,1,1,1,3,0,1,0,1,1,1,1,3,3,1,5,5,6,1,1,2,1,1,5,6,1
+Goniurellia or Dectodes sp,1,1,0,0,0,0,1,0,0,1,0,0,0,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1
+Graphomya maculata,0,0,1,0,1,0,1,0,1,1,0,0,1,0,0,0,0,1,1,1,0,0,1,0,0,1,1,0
+Homoneura sp 1,0,0,1,0,1,0,1,0,1,1,0,1,0,0,0,0,0,1,1,1,0,0,1,0,0,1,1,0
+Hydrotaea fuliginosa,0,0,0,1,0,1,1,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,1,0
+Lecithoceridae sp 1,1,1,0,0,0,0,1,0,0,3,1,0,0,0,0,1,1,1,1,2,1,1,1,0,1,3,2,1
+Leptotes pirithous ,2,1,0,0,0,0,1,0,0,3,1,0,0,0,1,0,1,4,2,1,1,1,1,0,1,2,1,1
+Lygaeidae sp 5,1,1,0,0,0,0,1,0,0,1,1,0,0,0,1,1,0,1,1,1,1,1,1,0,1,1,1,1
+Lygistorrhina sp,2,1,1,0,1,0,4,1,1,5,1,1,1,0,1,4,1,0,4,4,1,1,2,0,1,6,3,1
+Mauritiborium undulatus,2,1,1,1,1,1,4,0,1,5,1,1,1,1,1,2,1,4,0,5,1,1,2,1,1,3,4,1
+Melanostoma annulipes,1,1,1,1,1,1,5,0,1,6,1,1,1,1,2,1,1,4,5,0,1,1,2,1,1,6,7,1
+Miridae sp,1,1,0,0,0,0,1,0,0,1,1,0,0,0,1,1,1,1,1,1,0,1,1,0,1,1,1,1
+Mordellidae sp 1,1,1,0,0,0,0,1,0,0,1,1,0,0,0,1,1,1,1,1,1,1,0,1,0,1,1,1,1
+Orchisia costata,1,1,1,0,1,0,2,0,1,2,1,1,1,0,1,1,1,2,2,2,1,1,0,0,1,2,2,1
+Palexorista sp,0,0,0,1,0,1,1,0,0,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,1,0
+Scolia carniflex,1,1,0,0,0,0,1,0,0,1,1,0,0,0,1,1,1,1,1,1,1,1,1,0,0,1,1,1
+Stomoxys calcitrans,1,1,1,0,1,0,3,0,1,5,1,1,1,0,3,2,1,6,3,6,1,1,2,0,1,0,5,1
+Stomoxys niger,1,1,1,1,1,1,3,0,1,6,1,1,1,1,2,1,1,3,4,7,1,1,2,1,1,5,0,1
+Syritta bulbus,1,1,0,0,0,0,1,0,0,1,1,0,0,0,1,1,1,1,1,1,1,1,1,0,1,1,1,0

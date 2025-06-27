@@ -1,0 +1,23 @@
+
+Network loaded with 100 nodes and 2054 edges. (controlled pollinators network)
+
+--- Performing Community Detection ---
+Detected 5 communities.
+Modularity of the partition: 0.0771
+
+--- Community Details ---
+pollinators Community 0:
+  Nodes (24): Cratopus psittacus, Phelsuma cepediana, Cerambycidae sp 3, Ophyra capensis, Cheloninae sp 1, Orthellia albigena, Pelecophora intemipta, Fannia pusio, Simulium (Byssodon) sp 2, Paragus borbonicus, Melanagromyza sojae, Eurytonidae sp 1, Mordellidae sp 2, Musca confiscate, Syritta sp near abyssinica, Phorinia sp, Sarcophaga arno, Henotesia narcissus, Sapromyza sp near nudiuscula, Homoneura sp 2, Zosterops mauritianus, Pheidole megacephala, Dasytinae sp, Limnophora quaterna
+------------------------------
+pollinators Community 1:
+  Nodes (28): Lygaeidae sp 5, Cotesia sp 1, Lecithoceridae sp 1, Goniurellia or Dectodes sp, Diptera sp 3, Mauritiborium undulatus, Cixiidae sp 2, Stomoxys niger, Diptera sp 2, Melanostoma annulipes, Leptotes pirithous , Lygistorrhina sp, Graphomya maculata, Hydrotaea fuliginosa, Cerambycidae sp 1, Ceratitis roas, Stomoxys calcitrans, Palexorista sp, Cheloninae sp 3, Cixiidae sp 1, Scolia carniflex, Episyrphus sp near circularis, Orchisia costata, Mordellidae sp 1, Homoneura sp 1, Miridae sp, Syritta bulbus, Dioxyna sororcula
+------------------------------
+pollinators Community 2:
+  Nodes (10): Cerambycidae sp 2, Thelairodrino sp, Scopariinae sp, Gelechioidea sp 2, Scirtidae sp 2, Scirtidae sp 1, Nacoleia sp 2, Ahasverus advena, Gelechioidea sp 1, Eumolpinae sp 2
+------------------------------
+pollinators Community 3:
+  Nodes (30): Eumolpinae sp 3, Nacoleia sp 1, Polistes hebraeus, Cryptocephalinae sp, Allograpta nasuta, Agathidinae sp, Panara naso, Technomyrmex albipes, Ornidia obesa, Hippotion eson, Stomorhina lunata, Pachycerina crinicornis, Thysanoplusia orichalcea, Musca domestica, Siphona sp, Syritta nigrofemorata, Brachymyrmex sp, Ischiodon aegyptius, Apis mellifera, Villa unifasciata, Chaetocnema sp, Atherigona orientalis, Campopleginae sp, Lygaeidae sp 2, Nitidulidae sp, Chrysomya megacephala, Dysauxes florida, Nyctemera insulare, Phalanta phalantha, Eristalinus flaveolus
+------------------------------
+pollinators Community 4:
+  Nodes (8): Macroglossum milvus, Lygaeidae sp 3, Mordellidae sp 3, Gelechioidea sp 3, Psyllidae sp 2, Scatopsidae sp, Melanostoma bituberculatum, Calopsilia florella
+------------------------------

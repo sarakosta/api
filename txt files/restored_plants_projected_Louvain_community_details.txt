@@ -1,0 +1,17 @@
+
+Network loaded with 74 nodes and 2093 edges. (restored plants network)
+
+--- Performing Community Detection ---
+Detected 3 communities.
+Modularity of the partition: 0.0754
+
+--- Community Details ---
+plants Community 0:
+  Nodes (32): Antirhea borbonica, Syzygium glomeratum, Embelia angustifolia, Chassalia coriacea var coriacea, Claoxylon linostachys ssp brachyphyllum, Agauria salicifolia, Faujasiopsis flexuosa ssp erecta, Geniostoma borbonicum, Aphloia theiformis, Dracaena reflexa var angustifolia, Sideroxylon puberulum, Euodia obtusifolia ssp gigas var brachypoda, Molinaea alternifolia, Psiadia terebinthina, Antidesma madagascariense, Xyris sp, Erythroxylum macrocarpum, Syzygium coriaceum, Memecylon ovatifolium, Pleurostylia leucocarpa , Stillingia lineata ssp lineata, Dodonaea viscosa , Gaertnera rotundifolia, Ocotea laevigata, Sideroxylon cinereum, Badula insularis, Erythrospermum monticolum var monticolum, Syzygium venosum, Tambourissa peltata, Toddalia asiatica, Croton fothergillifolius, Polyscias mauritiana
+------------------------------
+plants Community 1:
+  Nodes (1): Colea colei
+------------------------------
+plants Community 2:
+  Nodes (41): Smilax anceps, Casearia coriacea, Coffea macrocarpa, Gaertnera petrinensis, Phyllanthus phillyreifolius var telfairianus, Syzygium petrinense, Pyrostria fasciculata, Coffea mauritiana, Roussea simplex , Warneckea trinervis, Euodia chapelieri var chapelieri, Xylopia lamarckii, Syzygium commersonii, Labourdonnaisia callophylloides, Cordemoya integrifolia, Pandanus barklyi var barklyi, Turraea rigida, Badula platiphylla, Trochetia blackburniana, Tristhema mauritiana, Pandanus wiehii, Pittosporum senacia, Grangeria borbonica, Helichrysum proteoides, Ochna mauritiana, Olea lancea, Chassalia petrinensis, Calophyllum eputamen var eputamen, Euodia obtusifolia ssp gigas var gigas, Syzygium mauritianum, Bertiera zaluzania, Mimusops erythroxylon, Doratoxylon apetalum var apetalum, Gaertnera psychotrioides/edentata, Monimiastrum globosum, Bakerella hoyifolia ssp bojeri, Pandanus rigidifolius, Tabernaemontana persicarifolia, Flagellaria indica, Diospyros revaughanii, Eugenia orbiculata
+------------------------------

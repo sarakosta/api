@@ -1,0 +1,413 @@
+
+Network loaded with 209 nodes and 745 edges. (restored network)
+
+--- Performing Stochastic Block Model Community Detection for A^T*A ---
+Detected 135 communities.
+Optimal Description Length (Entropy): 4643.4688
+
+--- Community Details ---
+Community 0:
+  Plants (0: None
+------------------------------
+Community 1:
+  Plants (0: None
+------------------------------
+Community 2:
+  Plants (24: Papillio manlius, Drosophila sp 2, Macroglossum milvus, Mauritiborium undulatus, Zaprionus tuberculatus, Eumolpinae sp 1, Scopariinae sp, Cerambycidae sp 1, Mordellidae sp 2, Psyllidae sp 2, Scatopsidae sp, Ahasverus advena, Zizeeria knysa, Mordellidae sp 1, Gelechioidea sp 1, Eilema squalida, Lygaeidae sp 1, Anthomyia faciata, Remigia frugalis, Campopleginae sp, Drosophila sp 3, Limonia (Dycranomia) sp, Hydrillodes sp, Mythimna sp
+------------------------------
+Community 3:
+  Plants (0: None
+------------------------------
+Community 4:
+  Plants (0: None
+------------------------------
+Community 5:
+  Plants (0: None
+------------------------------
+Community 6:
+  Plants (0: None
+------------------------------
+Community 7:
+  Plants (0: None
+------------------------------
+Community 8:
+  Plants (0: None
+------------------------------
+Community 9:
+  Plants (0: None
+------------------------------
+Community 10:
+  Plants (23: Chironomidae sp, Lygaeidae sp 5, Goniurellia or Dectodes sp, Cicadellidae sp, Homoneura quadrivittata, Atherigona sp, Spilogona sp , Phalanta phalantha , Cryptinae sp, Scirtidae sp 2, Cheloninae sp 2, Lygaeidae sp 4, Psyllidae sp 1, Acopsis viridicans, Scirtidae sp 1, Sarcophaga arno, Condica capensis, Zaprionus vittiger, Orchisia costata, Dasytinae sp, Nogodinidae sp, Pterophoridae sp, Miridae sp
+------------------------------
+Community 11:
+  Plants (0: None
+------------------------------
+Community 12:
+  Plants (8: Polistes hebraeus, Lygistorrhina sp, Ornidia obesa, Ceratitis roas, Melanostoma bituberculatum, Zosterops mauritianus, Dysauxes florida, Dioxyna sororcula
+------------------------------
+Community 13:
+  Plants (0: None
+------------------------------
+Community 14:
+  Plants (0: None
+------------------------------
+Community 15:
+  Plants (0: None
+------------------------------
+Community 16:
+  Plants (0: None
+------------------------------
+Community 17:
+  Plants (0: None
+------------------------------
+Community 18:
+  Plants (0: None
+------------------------------
+Community 19:
+  Plants (0: None
+------------------------------
+Community 20:
+  Plants (0: None
+------------------------------
+Community 21:
+  Plants (0: None
+------------------------------
+Community 22:
+  Plants (0: None
+------------------------------
+Community 23:
+  Plants (0: None
+------------------------------
+Community 24:
+  Plants (0: None
+------------------------------
+Community 25:
+  Plants (0: None
+------------------------------
+Community 26:
+  Plants (0: None
+------------------------------
+Community 27:
+  Plants (0: None
+------------------------------
+Community 28:
+  Plants (0: None
+------------------------------
+Community 29:
+  Plants (0: None
+------------------------------
+Community 30:
+  Plants (0: None
+------------------------------
+Community 31:
+  Plants (0: None
+------------------------------
+Community 32:
+  Plants (15: Lecithoceridae sp 1, Phelsuma cepediana, Cerambycidae sp 3, Allograpta sp 1, Drosophila sp 1, Cheloninae sp 1, Tettigoniidae sp 1, Allograpta sp 2, Strictopterinae sp, Paleorhiza sp 1, Scolia carniflex, Scolia oryctophaga, Homoneura sp 1, Limnophora quaterna, Sarrothripinae sp
+------------------------------
+Community 33:
+  Plants (0: None
+------------------------------
+Community 34:
+  Plants (0: None
+------------------------------
+Community 35:
+  Plants (0: None
+------------------------------
+Community 36:
+  Plants (0: None
+------------------------------
+Community 37:
+  Plants (18: Simulium sp, Thelairodrino sp, Hyadina sp, Bactrocera cucurbitae, Hyperaspis hottentota, Lauxania sp, Peribaea sp, Simulium (Byssodon) sp 2, Calcidoidae sp 1, Pteromalidae sp, Siphona sp, Dolichopodidae sp, Homoneura sp 2, Trirhithrum sp near nigerrimum, Pheidole megacephala, Acalyptrate sp, Diptera sp 1, Conocephalus sp 1
+------------------------------
+Community 38:
+  Plants (0: None
+------------------------------
+Community 39:
+  Plants (0: None
+------------------------------
+Community 40:
+  Plants (0: None
+------------------------------
+Community 41:
+  Plants (0: None
+------------------------------
+Community 42:
+  Plants (0: None
+------------------------------
+Community 43:
+  Plants (0: None
+------------------------------
+Community 44:
+  Plants (12: Nacoleia sp 1, Allograpta nasuta, Fannia pusio, Technomyrmex albipes, Stomorhina lunata, Pachycerina crinicornis, Musca domestica, Stomoxys calcitrans, Psilopa iceryae, Apis mellifera, Chrysomya megacephala, Eristalinus flaveolus
+------------------------------
+Community 45:
+  Plants (0: None
+------------------------------
+Community 46:
+  Plants (0: None
+------------------------------
+Community 47:
+  Plants (0: None
+------------------------------
+Community 48:
+  Plants (0: None
+------------------------------
+Community 49:
+  Plants (0: None
+------------------------------
+Community 50:
+  Plants (0: None
+------------------------------
+Community 51:
+  Plants (7: Ophyra capensis, Graphomya maculata, Paragus borbonicus, Phorinia sp, Brachymyrmex sp, Ischiodon aegyptius, Chaetocnema sp
+------------------------------
+Community 52:
+  Plants (0: None
+------------------------------
+Community 53:
+  Plants (0: None
+------------------------------
+Community 54:
+  Plants (11: Trichoplusia indicator , Lecithoceridae sp 2, Spodoptera littoralis, Cephonodes trochilus, Achaea finite, Limoniidae sp, Hippotion eson, Aganais borbonica, Pycnonotus jocosus, Agrostis atritegulator, Foudia madagascariense
+------------------------------
+Community 55:
+  Plants (0: None
+------------------------------
+Community 56:
+  Plants (0: None
+------------------------------
+Community 57:
+  Plants (0: None
+------------------------------
+Community 58:
+  Plants (0: None
+------------------------------
+Community 59:
+  Plants (0: None
+------------------------------
+Community 60:
+  Plants (0: None
+------------------------------
+Community 61:
+  Plants (0: None
+------------------------------
+Community 62:
+  Plants (0: None
+------------------------------
+Community 63:
+  Plants (0: None
+------------------------------
+Community 64:
+  Plants (0: None
+------------------------------
+Community 65:
+  Plants (0: None
+------------------------------
+Community 66:
+  Plants (0: None
+------------------------------
+Community 67:
+  Plants (0: None
+------------------------------
+Community 68:
+  Plants (0: None
+------------------------------
+Community 69:
+  Plants (0: None
+------------------------------
+Community 70:
+  Plants (0: None
+------------------------------
+Community 71:
+  Plants (0: None
+------------------------------
+Community 72:
+  Plants (0: None
+------------------------------
+Community 73:
+  Plants (6: Orthellia albigena, Melanagromyza sojae, Syritta sp near abyssinica, Tarundia servillei, Sapromyza sp near nudiuscula, Sepsis lateralis
+------------------------------
+Community 74:
+  Plants (0: None
+------------------------------
+Community 75:
+  Plants (0: None
+------------------------------
+Community 76:
+  Plants (0: None
+------------------------------
+Community 77:
+  Plants (0: None
+------------------------------
+Community 78:
+  Plants (0: None
+------------------------------
+Community 79:
+  Plants (0: None
+------------------------------
+Community 80:
+  Plants (0: None
+------------------------------
+Community 81:
+  Plants (0: None
+------------------------------
+Community 82:
+  Plants (0: None
+------------------------------
+Community 83:
+  Plants (0: None
+------------------------------
+Community 84:
+  Plants (0: None
+------------------------------
+Community 85:
+  Plants (0: None
+------------------------------
+Community 86:
+  Plants (0: None
+------------------------------
+Community 87:
+  Plants (0: None
+------------------------------
+Community 88:
+  Plants (0: None
+------------------------------
+Community 89:
+  Plants (0: None
+------------------------------
+Community 90:
+  Plants (0: None
+------------------------------
+Community 91:
+  Plants (0: None
+------------------------------
+Community 92:
+  Plants (0: None
+------------------------------
+Community 93:
+  Plants (0: None
+------------------------------
+Community 94:
+  Plants (0: None
+------------------------------
+Community 95:
+  Plants (0: None
+------------------------------
+Community 96:
+  Plants (0: None
+------------------------------
+Community 97:
+  Plants (0: None
+------------------------------
+Community 98:
+  Plants (0: None
+------------------------------
+Community 99:
+  Plants (0: None
+------------------------------
+Community 100:
+  Plants (0: None
+------------------------------
+Community 101:
+  Plants (0: None
+------------------------------
+Community 102:
+  Plants (0: None
+------------------------------
+Community 103:
+  Plants (0: None
+------------------------------
+Community 104:
+  Plants (0: None
+------------------------------
+Community 105:
+  Plants (0: None
+------------------------------
+Community 106:
+  Plants (0: None
+------------------------------
+Community 107:
+  Plants (0: None
+------------------------------
+Community 108:
+  Plants (0: None
+------------------------------
+Community 109:
+  Plants (0: None
+------------------------------
+Community 110:
+  Plants (0: None
+------------------------------
+Community 111:
+  Plants (0: None
+------------------------------
+Community 112:
+  Plants (0: None
+------------------------------
+Community 113:
+  Plants (0: None
+------------------------------
+Community 114:
+  Plants (0: None
+------------------------------
+Community 115:
+  Plants (0: None
+------------------------------
+Community 116:
+  Plants (0: None
+------------------------------
+Community 117:
+  Plants (0: None
+------------------------------
+Community 118:
+  Plants (0: None
+------------------------------
+Community 119:
+  Plants (0: None
+------------------------------
+Community 120:
+  Plants (0: None
+------------------------------
+Community 121:
+  Plants (0: None
+------------------------------
+Community 122:
+  Plants (0: None
+------------------------------
+Community 123:
+  Plants (0: None
+------------------------------
+Community 124:
+  Plants (0: None
+------------------------------
+Community 125:
+  Plants (0: None
+------------------------------
+Community 126:
+  Plants (0: None
+------------------------------
+Community 127:
+  Plants (0: None
+------------------------------
+Community 128:
+  Plants (0: None
+------------------------------
+Community 129:
+  Plants (0: None
+------------------------------
+Community 130:
+  Plants (0: None
+------------------------------
+Community 131:
+  Plants (0: None
+------------------------------
+Community 132:
+  Plants (0: None
+------------------------------
+Community 133:
+  Plants (0: None
+------------------------------
+Community 134:
+  Plants (11: Stomoxys niger, Melanostoma annulipes, Panara naso, Pelecophora intemipta, Syritta nigrofemorata, Nacoleia sp 2, Henotesia narcissus, Episyrphus sp near circularis, Villa unifasciata, Nyctemera insulare, Leptotes pirithous
+------------------------------

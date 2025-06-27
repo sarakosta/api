@@ -1,0 +1,32 @@
+
+Network loaded with 209 nodes and 745 edges. (restored network)
+
+--- Performing Community Detection ---
+Detected 6 communities.
+Modularity of the partition: 0.3350
+
+--- Community Details ---
+Community 0:
+  Plants (18): Agauria salicifolia, Antirhea borbonica, Chassalia coriacea var coriacea, Chassalia petrinensis, Coffea macrocarpa, Coffea mauritiana, Gaertnera petrinensis, Gaertnera psychotrioides/edentata, Gaertnera rotundifolia, Mimusops erythroxylon, Ochna mauritiana, Pandanus rigidifolius, Pandanus wiehii, Smilax anceps, Syzygium commersonii, Tabernaemontana persicarifolia, Tambourissa peltata, Trochetia blackburniana
+  Pollinators (26): Ahasverus advena, Anthomyia faciata, Cephonodes trochilus, Condica capensis, Drosophila sp 2, Drosophila sp 3, Eilema squalida, Eumolpinae sp 1, Hippotion eson, Hydrillodes sp, Leptotes pirithous, Limonia (Dycranomia) sp, Macroglossum milvus, Mordellidae sp 1, Mythimna sp, Nacoleia sp 1, Panara naso, Papillio manlius, Phelsuma cepediana, Remigia frugalis, Sarcophaga arno, Sarrothripinae sp, Scopariinae sp, Strictopterinae sp, Zaprionus tuberculatus, Zaprionus vittiger
+------------------------------
+Community 1:
+  Plants (21): Antidesma madagascariense, Calophyllum eputamen var eputamen, Croton fothergillifolius, Dodonaea viscosa , Erythrospermum monticolum var monticolum, Euodia chapelieri var chapelieri, Euodia obtusifolia ssp gigas var brachypoda, Faujasiopsis flexuosa ssp erecta, Flagellaria indica, Geniostoma borbonicum, Helichrysum proteoides, Memecylon ovatifolium, Ocotea laevigata, Olea lancea, Pleurostylia leucocarpa , Polyscias mauritiana, Stillingia lineata ssp lineata, Syzygium coriaceum, Syzygium glomeratum, Toddalia asiatica, Xyris sp
+  Pollinators (45): Acalyptrate sp, Campopleginae sp, Cerambycidae sp 1, Ceratitis roas, Chaetocnema sp, Cheloninae sp 2, Chrysomya megacephala, Conocephalus sp 1, Cryptinae sp, Dasytinae sp, Diptera sp 1, Dolichopodidae sp, Dysauxes florida, Gelechioidea sp 1, Graphomya maculata, Homoneura quadrivittata, Homoneura sp 2, Hyadina sp, Hyperaspis hottentota, Ischiodon aegyptius, Lauxania sp, Lecithoceridae sp 2, Lygaeidae sp 1, Melanagromyza sojae, Musca domestica, Orchisia costata, Pachycerina crinicornis, Paragus borbonicus, Peribaea sp, Phorinia sp, Psilopa iceryae, Psyllidae sp 1, Psyllidae sp 2, Pteromalidae sp, Scatopsidae sp, Scirtidae sp 1, Scirtidae sp 2, Sepsis lateralis, Simulium (Byssodon) sp 2, Simulium sp, Spilogona sp , Syritta sp near abyssinica, Tarundia servillei, Thelairodrino sp, Trirhithrum sp near nigerrimum
+------------------------------
+Community 2:
+  Plants (23): Aphloia theiformis, Bakerella hoyifolia ssp bojeri, Bertiera zaluzania, Casearia coriacea, Cordemoya integrifolia, Diospyros revaughanii, Doratoxylon apetalum var apetalum, Dracaena reflexa var angustifolia, Eugenia orbiculata, Grangeria borbonica, Labourdonnaisia callophylloides, Pandanus barklyi var barklyi, Pittosporum senacia, Pyrostria fasciculata, Roussea simplex , Sideroxylon cinereum, Sideroxylon puberulum, Syzygium mauritianum, Syzygium petrinense, Tristhema mauritiana, Turraea rigida, Warneckea trinervis, Xylopia lamarckii
+  Pollinators (34): Achaea finite, Aganais borbonica, Agrostis atritegulator, Allograpta sp 1, Allograpta sp 2, Apis mellifera, Atherigona sp, Cerambycidae sp 3, Cheloninae sp 1, Chironomidae sp, Drosophila sp 1, Episyrphus sp near circularis, Eristalinus flaveolus, Foudia madagascariense, Henotesia narcissus, Homoneura sp 1, Lecithoceridae sp 1, Limnophora quaterna, Limoniidae sp, Melanostoma annulipes, Nacoleia sp 2, Nyctemera insulare, Ornidia obesa, Paleorhiza sp 1, Pelecophora intemipta, Polistes hebraeus, Pycnonotus jocosus, Scolia carniflex, Scolia oryctophaga, Spodoptera littoralis, Stomoxys niger, Technomyrmex albipes, Trichoplusia indicator , Zosterops mauritianus
+------------------------------
+Community 3:
+  Plants (10): Badula insularis, Badula platiphylla, Claoxylon linostachys ssp brachyphyllum, Embelia angustifolia, Erythroxylum macrocarpum, Euodia obtusifolia ssp gigas var gigas, Molinaea alternifolia, Monimiastrum globosum, Psiadia terebinthina, Syzygium venosum
+  Pollinators (26): Acopsis viridicans, Allograpta nasuta, Brachymyrmex sp, Cicadellidae sp, Dioxyna sororcula, Fannia pusio, Goniurellia or Dectodes sp, Lygaeidae sp 4, Lygaeidae sp 5, Lygistorrhina sp, Mauritiborium undulatus, Melanostoma bituberculatum, Miridae sp, Mordellidae sp 2, Nogodinidae sp, Ophyra capensis, Orthellia albigena, Phalanta phalantha , Pterophoridae sp, Sapromyza sp near nudiuscula, Stomorhina lunata, Stomoxys calcitrans, Syritta nigrofemorata, Tettigoniidae sp 1, Villa unifasciata, Zizeeria knysa
+------------------------------
+Community 4:
+  Plants (1): Phyllanthus phillyreifolius var telfairianus
+  Pollinators (4): Bactrocera cucurbitae, Calcidoidae sp 1, Pheidole megacephala, Siphona sp
+------------------------------
+Community 5:
+  Plants (1): Colea colei
+  Pollinators (0): None
+------------------------------
