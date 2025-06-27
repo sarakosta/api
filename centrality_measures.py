@@ -58,6 +58,10 @@ f.bar_chart_species_origin(bc_plants_c, file_path = "data/controlled_plants.csv"
 f.bar_chart_species_origin(bc_pollinators_c, file_path = "data/controlled_pollinators.csv", cm_name = "Betweenness Centrality", kingdom_type = "Pollinators", graph_type = "Control")
 f.bar_chart_species_origin(bc_plants_r, file_path = "data/restored_plants.csv", cm_name = "Betweenness Centrality", kingdom_type = "Plants", graph_type = "Restored")
 f.bar_chart_species_origin(bc_pollinators_r, file_path = "data/restored_pollinators.csv", cm_name = "Betweenness Centrality", kingdom_type = "Pollinators", graph_type = "Restored")
+print("Plant BC Control:", bc_plants_c)
+print("Pollinator BC Control:", bc_pollinators_c)
+print("Plant BC Restored:", bc_plants_r)
+print("Pollinator BC Restored:", bc_pollinators_r)
 
 # closeness centrality
 cc_plants_c, cc_pollinators_c = f.closeness_centrality(G_c)
@@ -70,6 +74,10 @@ f.bar_chart_species_origin(cc_plants_c, file_path = "data/controlled_plants.csv"
 f.bar_chart_species_origin(cc_pollinators_c, file_path = "data/controlled_pollinators.csv", cm_name = "Closeness Centrality", kingdom_type = "Pollinators", graph_type = "Control")
 f.bar_chart_species_origin(cc_plants_r, file_path = "data/restored_plants.csv", cm_name = "Closeness Centrality", kingdom_type = "Plants", graph_type = "Restored")
 f.bar_chart_species_origin(cc_pollinators_r, file_path = "data/restored_pollinators.csv", cm_name = "Closeness Centrality", kingdom_type = "Pollinators", graph_type = "Restored")
+print("Plant CC Control:", cc_plants_c)
+print("Pollinator CC Control:", cc_pollinators_c)
+print("Plant CC Restored:", cc_plants_r)
+print("Pollinator CC Restored:", cc_pollinators_r)
 
 # weighted degree 
 wd_plants_c, wd_pollinators_c = f.weighted_degree(G_c)
@@ -82,6 +90,10 @@ f.bar_chart_species_origin(wd_plants_c, file_path = "data/controlled_plants.csv"
 f.bar_chart_species_origin(wd_pollinators_c, file_path = "data/controlled_pollinators.csv", cm_name = "Weighted Degree", kingdom_type = "Pollinators", graph_type = "Control")
 f.bar_chart_species_origin(wd_plants_r, file_path = "data/restored_plants.csv", cm_name = "Weighted Degree", kingdom_type = "Plants", graph_type = "Restored")
 f.bar_chart_species_origin(wd_pollinators_r, file_path = "data/restored_pollinators.csv", cm_name = "Weighted Degree", kingdom_type = "Pollinators", graph_type = "Restored")
+print("Plant WD Control:", wd_plants_c)
+print("Pollinator WD Control:", wd_pollinators_c)
+print("Plant WD Restored:", wd_plants_r)
+print("Pollinator WD Restored:", wd_pollinators_r)
 
 # -- Mann-Withney and Kolmogorov-Smirnov tests
 f.test_ks_mw(list(wd_plants_c.values()), mean_wd_plants_c, list(bc_plants_c.values()), mean_bc_plants_c, list(cc_plants_c.values()), mean_cc_plants_c, graph_type = "Control")

@@ -1,0 +1,18 @@
+Number of plant species in control site: 63
+Number of animal species in control site: 100
+Number of interactions in control site: 533
+Number of plant species in restored site: 74
+Number of animal species in restored site: 135
+Number of interactions in restored site: 745
+controlled evenness: 0.7484968700741708
+restored evenness: 0.6701527009890929
+Number of visits in controlled site: 3334
+Number of visits in restored site: 3961
+Maximal plant linkage in controlled site: 38
+Maximal pollinator linkage in controlled site: 33
+Mean plant linkage in controlled site: 8.46031746031746 +/- 1.1542259481326016
+Mean pollinator linkage in controlled site: 5.33 +/- 0.7072559649801476
+Maximal plant linkage in restored site: 39
+Maximal pollinator linkage in restored site: 45
+Mean plant linkage in restored site: 10.067567567567568 +/- 1.0560153411229534
+Mean pollinator linkage in restored site: 5.33 +/- 0.6087090164164374

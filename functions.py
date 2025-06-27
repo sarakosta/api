@@ -273,6 +273,25 @@ def create_erdos_renyi(file_path):
 
     return G_er
 
+# -- GENERIC INFO ABOUT SYSTEM --
+def print_graph_info(file):
+    data = pd.read_csv(file, index_col=0, header=0, encoding='ISO-8859-1')
+
+    #data = data_d.to_numpy()
+
+    num_animals, num_plants = data.shape
+
+    interactions = np.count_nonzero(data)
+    
+    return num_plants, num_animals, interactions
+
+def number_of_visits(file_path):
+    df = pd.read_csv(file_path)
+
+    number_of_visits = df.iloc[:, 6].sum()
+
+    return number_of_visits
+
 # -- CENTRALITY MEASURES --
 
 # get the degree from the graph
