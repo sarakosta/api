@@ -343,7 +343,7 @@ def closeness_centrality(graph):
     plants = {n for n, d in graph.nodes(data=True) if d['bipartite'] == 0}
     pollinators = {n for n, d in graph.nodes(data=True) if d['bipartite'] == 1}
 
-    closeness = nx.closeness_centrality(graph, distance='weight')
+    closeness = nx.closeness_centrality(graph)
     plant_ccw = {n: closeness[n] for n in plants}
     pollinator_ccw = {n: closeness[n] for n in pollinators}
     return plant_ccw, pollinator_ccw
