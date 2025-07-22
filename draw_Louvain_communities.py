@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import functions as f
 
-"""
 f.draw_network_origin("data/controlled_louvain_community_0_adjacency_matrix.csv", "data/controlled_plants.csv", "data/controlled_pollinators.csv", min_spacing=0.02, min_size=70, scale_factor=150)
 plt.savefig("controlled_comm0_louvain_graph.jpeg", format='jpeg', dpi=300, bbox_inches='tight')
 plt.show()
@@ -41,7 +40,7 @@ plt.show()
 f.draw_network_origin("data/restored_louvain_community_4_adjacency_matrix.csv", "data/restored_plants.csv", "data/restored_pollinators.csv", min_spacing=0.02, min_size=70, scale_factor=150)
 plt.savefig("restored_comm4_louvain_graph.jpeg", format='jpeg', dpi=300, bbox_inches='tight')
 plt.show()
-"""
+
 
 # controlled plants
 f.draw_plants_origin("data/controlled_louvain_plants_community_0_adjacency_matrix.csv", "data/controlled_plants.csv")
