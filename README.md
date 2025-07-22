@@ -6,6 +6,7 @@ It contains the following folders:
 - Networks: where the drawings of the main networks are;
 - Communities: where all graphs regarding communities are collected;
 - txt files: where useful txt files produced during the codes are.
+
 The .py files are the following:
 - functions.py: here there are all the functions we used in the project;
 - basic_system_info.py: here we computed the values in Tab. 1 of our paper;
